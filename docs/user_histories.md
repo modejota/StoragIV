@@ -8,6 +8,8 @@ Se procede a la descripción de los usuarios implicados en el problema planteado
 - Un mozo será un empleado del almacén, encargado de distribuir los productos a los distintos locales y solicitar repuestos a fábrica.
 - El gestor será parte del personal administrativo del negocio, encargado de analizar la evolución del mismo y tomar decisiones estratégicas.
 
+---
+
 - [HU1](https://github.com/modejota/IVProject/issues/2) -> Como dependiente, quiero poder realizar un pedido al almacén (y modificar los productos del mismo).
 - [HU2](https://github.com/modejota/IVProject/issues/3) -> Como dependiente, quiero poder establecer una prioridad a mi pedido (y modificarla de ser necesario).
 - [HU3](https://github.com/modejota/IVProject/issues/4) -> Como mozo, quiero consultar los pedidos a preparar, priorizando los urgentes.

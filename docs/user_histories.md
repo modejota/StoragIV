@@ -12,5 +12,5 @@ Se procede a la descripción de los usuarios implicados en el problema planteado
 - HU2 -> Como dependiente, quiero poder establecer una prioridad a mi pedido (y modificarla de ser necesario).
 - HU3 -> Como mozo, quiero consultar los pedidos a preparar, priorizando los urgentes.
 - HU4 -> Como mozo, quiero notificar a los dependientes de posibles incidencias (productos no disponibles, retrasos, etc).
-- HU5 -> Como mozo, quiero poder solicitar a fábrica los productos que sean necesarios.
+- HU5 -> Como mozo, quiero poder solicitar a fábrica los productos que sea necesario reponer en el almacén.
 - HU6 -> Como gestor, quiero disponer de un informe de los productos más solicitados en determinados periodos temporales.

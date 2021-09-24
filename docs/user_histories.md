@@ -16,3 +16,4 @@ Se procede a la descripción de los usuarios implicados en el problema planteado
 - [HU4](https://github.com/modejota/IVProject/issues/5) -> Como mozo, quiero notificar a los dependientes de posibles incidencias (productos no disponibles, retrasos, etc).
 - [HU5](https://github.com/modejota/IVProject/issues/6) -> Como mozo, quiero poder solicitar a fábrica los productos que sea necesario reponer en el almacén.
 - [HU6](https://github.com/modejota/IVProject/issues/7) -> Como gestor, quiero disponer de un informe de los productos más solicitados en determinados periodos temporales.
+- [HU7](https://github.com/modejota/IVProject/issues/8) -> Como dependiente, quiero que se me avise cuando un producto o productos se encuentren por debajo de una determinada cantidad, pudiendo hacer que se genere un pedido al almacen automáticamente

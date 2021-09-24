@@ -4,8 +4,7 @@ En este repositorio se podrá encontrar el proyecto realizado para la asignatura
 
 ## Descripción
 
-Se pretende desarrollar software para facilitar la gestión del inventario, tanto en tiendas, como en almacenes, de una cadena de negocios.
-Nos centraremos en facilitar la comunicación entre las tiendas y los almacenes.
+Se pretende desarrollar software para facilitar la gestión del inventario de un negocio.
 
 ## Motivación
 

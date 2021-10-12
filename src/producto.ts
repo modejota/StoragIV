@@ -1,5 +1,3 @@
-import {Existencias} from './existencias'
-
 export class Producto {
 
     private _id_producto:string;

@@ -1,37 +1,37 @@
-import {Existencias} from './existencias'
-
-export class Producto {
-
-    private _id_producto:string;
-    private _nombre:string;
-    private _pvp:number;
+import {Producto} from './producto'
 
 
-    // constructor, le pasamos los parámetros de prodcuto y creamos la clase existencia asociada al mismo
-    constructor(id_producto:string, nombre:string, precio:number) {
+export class Venta {
 
-        this._id_producto = id_producto;
-        this._nombre = nombre;
-        this._pvp = precio;
+    private _producto:Producto;
+    private _cantidad:number;
+    private _fecha:string;
 
-    }
+    constructor (producto:Producto, cantidad:number, fecha:string) {
 
-    //metodos get
-    public get id_producto (): string {
-
-        return this.id_producto;
+        this._producto = producto;
+        this._cantidad = cantidad;
+        this._fecha = fecha;
+        //la cantidad será modificada en el gestor, ya que al objeto venta no le corresponde saber que ocurre en el objeto existencias
 
     }
 
-    public get nombre (): string {
+    //métodos get
+    public get producto() {
 
-        return this.nombre;
+        return this._producto;
 
     }
 
-   public get pvp (): number {
+    public get cantidad() {
 
-        return this.pvp;
+        return this._cantidad;
+
+    }
+
+    public get todos_datos() {
+
+        return "Se vendieron " + this._cantidad +  "de " + this._producto.nombre + "el" + this._fecha;
 
     }
 

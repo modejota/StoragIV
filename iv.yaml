@@ -1,0 +1,7 @@
+
+  
+lenguaje: typescript
+entidad: src/producto.ts
+entidad: src/existencias.ts
+entidad: src/venta.ts
+entidad: src/gestor.ts

@@ -5,4 +5,4 @@ entidad:
   - src/producto.ts
   - src/existencias.ts
   - src/venta.ts
-   -src/gestor.ts
+  - src/gestor.ts

@@ -56,7 +56,7 @@ export class Existencias {
 
     }
 
-    //método para modificar la cantidad
+    //método para modificar la cantidad. modejota: veo mejor que devuelva un booleano de si la operacion tiene exito, lo usaré tambien en el metodo de debajo
     nueva_cantidad (id:string, cantidad:number) {
 
         let producto = this.busco_producto(id);
@@ -64,16 +64,40 @@ export class Existencias {
         if (producto != -1) {
 
             this.almacen_[producto][1] = cantidad;
-            return "Valor actualizado correctamente";
+            return true;
 
         }
 
         else {
 
-            return "Valor no actualizado"
+            return false
 
         }
 
     } 
+
+    //Método para variar la cantidad. (Cuando vendes disminuyes cantidad, siempre que esté por encima de 0)
+    variar_cantidad(id:string, cantidad:number) {
+        let producto = this.busco_producto(id);
+
+        if (producto != -1) {
+
+            if((this.almacen_[producto][1] - cantidad) > 0) {
+                this.almacen_[producto][1] -= cantidad
+                return true
+            } 
+            
+            else {
+                return false
+            }
+
+        }
+
+        else {
+
+            return false
+
+        }
+    }
 
 }

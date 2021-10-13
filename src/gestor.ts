@@ -1,27 +1,27 @@
 import {Venta} from './venta'
 import {Existencias} from './existencias'
+import { Producto } from './producto';
 
-export class Gestor  {
+class gestor  {
 
     private _ventas:Venta[];
     private _existencias:Existencias;
 
-    constructor (existencias:Existencias) {
 
-        this._existencias = existencias;   
+    constructor (existencias:Existencias, ventas:Venta[]) {
 
-    }
-
-    //procesar la venta
-    venta(venta:Venta) {
-
-        this._ventas.push(venta);
-        let producto = this._ventas[this._ventas.length -1].producto.id_producto;
-        let cantidad_inicial = this._existencias.cantidad_producto(producto);
-        let cantidad_venta = this._ventas[this._ventas.length -1].cantidad;
-        let cantidad = cantidad_inicial - cantidad_venta;
-        this._existencias.nueva_cantidad(producto, cantidad);
+        this._existencias = existencias;
+        this._ventas = ventas;   
 
     }
+
+    add_venta(venta:Venta) {
+        this._ventas.push(venta)
+    }
+    
+    add_producto(producto:Producto, cantidad: number) {
+        this._existencias.añadir_producto(producto,cantidad)
+    }
+
 
 }

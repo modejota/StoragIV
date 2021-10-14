@@ -2,102 +2,45 @@ import {Producto} from './producto'
 
 export class Existencias {
 
-    private almacen_:[producto:Producto, cantidad:number][]; //vector de tuplas que almacena el producto y la cantidad existente en la misma tupla
+    private almacen_:Map<string, [producto_:Producto, cantidad_:number]>; //hash con clave del producto en el sistema (string) y tupla producto y cantidad
 
     constructor () {
 
-        this.almacen_ = new Array();
+        this.almacen_ = new Map<string, [Producto, number]>();
 
     }
 
     //método para añadir al vector
-    añadir_producto (existencia_:Producto, cantidad:number) {
+    añadir_producto (id_producto:string, producto:Producto, cantidad:number) {
 
-        this.almacen_.push([existencia_, cantidad]);
+        if (this.almacen_.has(id_producto)) {
 
-    }
-
-    //método para buscar, devuelve el índice
-    busco_producto (id:string): number {
-
-        let seguir:boolean = true;
-        let indice = -1;
-
-        for (let i = 0; this.almacen_.length && seguir; i++) {
-
-            indice = i;
-            let id_producto = this.almacen_[indice][0].id_producto;
-
-            if (id_producto == id) {
-
-                seguir = false;
-
-            }
+            return false;
 
         }
+        else {
 
-        return indice;
-
-    }
-
-    //método para devolver la cantidad
-    cantidad_producto (id:string): number {
-
-        let cantidad_devolver = 0;
-        let producto = this.busco_producto(id); //lo busco para ver si existe en el sistema
-
-        if (producto != -1) { //si existe, devolvemos su cantidad, si no pues será 0
-
-            cantidad_devolver = this.almacen_[producto][1]; //devuelvo el valor 1 de la tupla (cantidad)
-
-        }
-
-        return cantidad_devolver;
-
-    }
-
-    //método para modificar la cantidad. modejota: veo mejor que devuelva un booleano de si la operacion tiene exito, lo usaré tambien en el metodo de debajo
-    nueva_cantidad (id:string, cantidad:number) {
-
-        let producto = this.busco_producto(id);
-
-        if (producto != -1) {
-
-            this.almacen_[producto][1] = cantidad;
+            this.almacen_.set(id_producto, [producto, cantidad]);
             return true;
 
         }
 
+
+    }
+
+    get_producto (id_producto:string) {
+
+        if (this.almacen_.has(id_producto)) {
+
+            return this.almacen_.get(id_producto);
+
+        }
         else {
 
-            return false
+            return null;
 
         }
 
-    } 
-
-    //Método para variar la cantidad. (Cuando vendes disminuyes cantidad, siempre que esté por encima de 0)
-    variar_cantidad(id:string, cantidad:number) {
-        let producto = this.busco_producto(id);
-
-        if (producto != -1) {
-
-            if((this.almacen_[producto][1] - cantidad) > 0) {
-                this.almacen_[producto][1] -= cantidad
-                return true
-            } 
-            
-            else {
-                return false
-            }
-
-        }
-
-        else {
-
-            return false
-
-        }
     }
 
 }

@@ -1,26 +1,49 @@
-import {Venta} from './venta'
+import {Factura} from './factura'
 import {Existencias} from './existencias'
 import { Producto } from './producto';
 
 class gestor  {
 
-    private _ventas:Venta[];
+    private _ventas:Map<string, Factura>;
     private _existencias:Existencias;
 
 
-    constructor (existencias:Existencias, ventas:Venta[]) {
+    constructor (existencias:Existencias) {
 
-        this._existencias = existencias;
-        this._ventas = ventas;   
+        this._existencias = new Existencias();
+        this._ventas = new Map<string, Factura>();   
 
     }
 
-    add_venta(venta:Venta) {
-        this._ventas.push(venta)
+    añadir_venta(id_factura:string, venta:Factura) {
+
+        if (this._ventas.has(id_factura)) {
+
+            return false;
+
+        }
+        else {
+
+            this._ventas.set(id_factura, venta);
+            return true;
+
+        }
+
     }
     
-    add_producto(producto:Producto, cantidad: number) {
-        this._existencias.añadir_producto(producto,cantidad)
+    añadir_producto(id_producto:string, producto:Producto, cantidad: number) {
+
+        if (this._existencias.get_producto(id_producto) != null) {
+
+            this._existencias.añadir_producto(id_producto, producto,cantidad);
+            return true;
+
+        }
+        else {
+
+            return false;
+
+        }
     }
 
 

@@ -4,5 +4,5 @@ lenguaje: typescript
 entidad:
   - src/producto.ts
   - src/existencias.ts
-  - src/venta.ts
+  - src/factura.ts
   - src/gestor.ts

@@ -20,30 +20,30 @@ export class Producto {
 
         if (!nombre) {
 
-            throw new Error_producto("Se intentó crear un producto con ID = " + id_producto + " sin nombre");
+            throw new Error_producto(` Se intentó crear un producto con ID ${id_producto} sin nombre `);
 
         } else if (nombre.length < Constantes.LON_NOMBRE_MIN) {
 
-            throw new Error_producto("Se intentó crear un producto con ID " + id_producto + " con un nombre demasido corto");
+            throw new Error_producto(` Se intentó crear un producto con ID ${id_producto} con un nombre demasido corto `);
 
         } else if (nombre.length > Constantes.LON_NOMBRE_MAX) {
 
-            throw new Error_producto("Se intentó crear un producto con ID " + id_producto + " con un nombre demasido largo");
+            throw new Error_producto(` Se intentó crear un producto con ID ${id_producto} con un nombre demasido largo `);
 
         }
         this._nombre = nombre;
 
         if(!marca) {
 
-            throw new Error_producto("Se intentó crear un producto con ID " + id_producto + " y nombre \'" + nombre + "\' sin marca");
+            throw new Error_producto(` Se intentó crear un producto con ID ${id_producto} y nombre ${nombre} sin marca `);
 
         } else if (marca.length < Constantes.LON_MARCA_MIN) {
 
-            throw new Error_producto("Se intentó crear un producto con ID " + id_producto + " y nombre \'" + nombre + "\' con una marca muy corta");
+            throw new Error_producto(` Se intentó crear un producto con ID ${id_producto} y nombre ${nombre} con una marca muy corta `);
 
         } else if (marca.length > Constantes.LON_MARCA_MAX) {
 
-            throw new Error_producto("Se intentó crear un producto con ID " + id_producto + " y nombre \'" + nombre + "\' con una marca muy larga");
+            throw new Error_producto(` Se intentó crear un producto con ID "${id_producto} y nombre ${nombre} con una marca muy larga`);
 
         }
         this._marca = marca;

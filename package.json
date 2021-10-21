@@ -1,0 +1,9 @@
+{
+    "name": "storagiv",
+    "version": "0.0.4",
+    "description": "Sistema para gestión de inventario y ventas de un negocio",
+    "scripts": {
+        "build": "tsc --build",
+        "clean": "tsc --build --clean && rmdir dist"
+    }
+}

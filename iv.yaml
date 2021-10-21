@@ -1,5 +1,3 @@
-
-  
 lenguaje: typescript
 entidad:
   - src/producto.ts

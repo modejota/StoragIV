@@ -5,5 +5,21 @@
     "scripts": {
         "build": "tsc --build",
         "clean": "tsc --build --clean && rmdir dist"
-    }
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/modejota/storagiv.git"
+    },
+    "keywords": [],
+    "author": {
+        "name": "José Alberto Gómez García",
+        "email": "modej@correo.ugr.es"
+    },
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/modejota/storagiv/issues",
+        "email": "modej@correo.ugr.es"
+    },
+    "homepage": "https://github.com/modejota/storagiv"
+
 }

@@ -23,4 +23,8 @@ los conflictos y conseguir una mejor organización.
 
 ## Documentación adicional
 
-- [Historias de usuario](https://github.com/modejota/StoragIV/blob/main/docs/user_histories.md). Se enmarca como parte del objetivo 1.
+- [Historias de usuario](docs/user_histories.md).
+- [User Journey](docs/user_journey.md).
+- [Justificación del lenguaje elegido](docs/language.md).
+- [Justificación del task runner elegido](docs/task_runner.md)
+  

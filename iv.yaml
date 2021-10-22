@@ -6,4 +6,4 @@ entidad:
   - src/constantes.ts
 automatizar:
   - fichero: package.json
-  - orden: npm run build
+  - orden: npm run check

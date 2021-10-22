@@ -6,7 +6,6 @@ import { Tipo_producto } from "./tipo_producto";
  * Representa un producto del inventario
  * @public
  */
-
 export class Producto {
     
     private _id_producto:number;

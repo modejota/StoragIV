@@ -1,5 +1,6 @@
 /**
  * Clase para gestionar los posibles errores que puedan producerse al construir productos
+ * @public
  */
 export class Error_producto extends Error {
     /**

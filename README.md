@@ -12,3 +12,13 @@ La idea para este proyecto surge de mi propia experiencia trabajando en el negoc
 producirse errores dado el sistema de gestión utilizado. Con un cambio en dicho sistema, podrían reducirse
 los conflictos y conseguir una mejor organización.
 
+## Comandos
+
+- "Compilar" el proyecto:
+  > npm run build
+- Limpiar los archivos JS creados al compilar:
+  > npm run clean
+
+## Documentación adicional
+
+- [Historias de usuario](https://github.com/modejota/StoragIV/blob/main/docs/user_histories.md). Se enmarca como parte del objetivo 1.

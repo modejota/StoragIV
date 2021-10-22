@@ -4,7 +4,7 @@ Se procede a la descripción de los usuarios implicados en el problema planteado
 
 ---
 
-- Un dependiente será un empleado cualquiera de una tienda, encargado del trato con el cliente y el gestión del inventario en su local.
+- Un dependiente será un empleado cualquiera de una tienda, encargado del trato con el cliente y la gestión del inventario en su local.
 - El gestor será parte del personal administrativo del negocio, encargado de analizar la evolución del mismo y tomar decisiones estratégicas.
 
 ---
@@ -13,3 +13,4 @@ Se procede a la descripción de los usuarios implicados en el problema planteado
 - [HU2](https://github.com/modejota/IVProject/issues/10) -> Como gestor, quiero poder disponer de una estimación de la liquidez del negocio, en función de ingresos percibidos y a percibir, así como de gastos realizados y a realizar.
 - [HU3](https://github.com/modejota/IVProject/issues/11) -> Como gestor, quiero poder predecir la afluencia de clientes al local en determinadas fechas y franjas horarias.
 - [HU4](https://github.com/modejota/IVProject/issues/12) -> Como gestor, quiero disponer de un informe de los productos más vendidos en función del tipo de cliente.
+- Se obvian operaciones CRUD, aunque están quedan más detalladas en el [User Journey](docs/user_journey.md)

@@ -5,5 +5,5 @@ entidad:
   - src/errores.ts
   - src/constantes.ts
 automatizar:
-  - fichero: package.json
-  - orden: npm run check
+    fichero: package.json
+    orden: npm run check

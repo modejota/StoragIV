@@ -13,4 +13,4 @@ Se procede a la descripción de los usuarios implicados en el problema planteado
 - [HU2](https://github.com/modejota/storagIV/issues/10) -> Como gestor, quiero poder disponer de una estimación de la liquidez del negocio, en función de ingresos percibidos y a percibir, así como de gastos realizados y a realizar.
 - [HU3](https://github.com/modejota/storagIV/issues/11) -> Como gestor, quiero poder predecir la afluencia de clientes al local en determinadas fechas y franjas horarias.
 - [HU4](https://github.com/modejota/storagIV/issues/12) -> Como gestor, quiero disponer de un informe de los productos más vendidos en función del tipo de cliente.
-- Se obvian operaciones CRUD, aunque están quedan más detalladas en el [User Journey](docs/user_journey.md)
+- Se obvian operaciones CRUD, aunque estas quedan más detalladas en el [User Journey](docs/user_journey.md)

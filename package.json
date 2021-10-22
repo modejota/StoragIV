@@ -3,8 +3,10 @@
     "version": "0.0.4",
     "description": "Sistema para gestión de inventario y ventas de un negocio",
     "scripts": {
+        "check": "tsc --noEmit",
         "build": "tsc --build",
-        "clean": "tsc --build --clean && rmdir dist"
+        "clean": "tsc --build --clean",
+        "postclean": "rm -rf dist"
     },
     "repository": {
         "type": "git",
@@ -21,5 +23,4 @@
         "email": "modej@correo.ugr.es"
     },
     "homepage": "https://github.com/modejota/storagiv"
-
 }

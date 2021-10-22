@@ -1,6 +1,6 @@
 {
     "name": "storagiv",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "Sistema para gestión de inventario y ventas de un negocio",
     "scripts": {
         "check": "tsc --noEmit",

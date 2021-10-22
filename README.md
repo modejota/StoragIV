@@ -25,5 +25,5 @@ los conflictos y conseguir una mejor organización.
 
 - [Historias de usuario](docs/user_histories.md).
 - [User Journey](docs/user_journey.md).
-- [Justificación de las herramientas elegidas](docs/tools.md)
+- [Justificación de las herramientas elegidas](docs/tools.md).
   

@@ -25,6 +25,5 @@ los conflictos y conseguir una mejor organización.
 
 - [Historias de usuario](docs/user_histories.md).
 - [User Journey](docs/user_journey.md).
-- [Justificación del lenguaje elegido](docs/language.md).
-- [Justificación del task runner elegido](docs/task_runner.md)
+- [Justificación de las herramientas elegidas](docs/tools.md)
   

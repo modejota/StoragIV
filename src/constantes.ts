@@ -1,5 +1,6 @@
 /**
  * Clase pare representar los valores constantes, comunes a todo el programa
+ * @public
  */
 export abstract class Constantes {
     /**

@@ -14,6 +14,8 @@ los conflictos y conseguir una mejor organización.
 
 ## Comandos
 
+- Comprobar sintaxis:
+  > npm run check
 - "Compilar" el proyecto:
   > npm run build
 - Limpiar los archivos JS creados al compilar:

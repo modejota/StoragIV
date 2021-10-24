@@ -67,7 +67,7 @@ export class Producto {
      * Devuelve el identificador único del producto
      * @returns ID único del producto
      */
-    public get id_prodcuto() { 
+    public get id_producto() { 
 
         return this._id_producto;
 

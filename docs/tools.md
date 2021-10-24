@@ -53,4 +53,6 @@ Como hemos mencionado en el apartado anterior, NPM es un gestor de dependencias,
 ---
 
 Como framework de tests he decidido utilizar jest. 
+
 Por lo que he podido leer, tiene un gran soporte con TypeScript a través del paquete ts-jest, es bastante rápido y permite escribir test de manera rápida, sencilla y concisa.
+Además, es fácil de configurar, es capaz de identificar automáticamente los ficheros de test y muestra la cobertura de los test, dificultando que te dejes alguna parte del código sin probar.

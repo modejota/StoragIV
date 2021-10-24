@@ -1,8 +1,9 @@
-
-  
 lenguaje: typescript
 entidad:
   - src/producto.ts
   - src/tipo_producto.ts
   - src/errores.ts
   - src/constantes.ts
+automatizar:
+    fichero: package.json
+    orden: npm run

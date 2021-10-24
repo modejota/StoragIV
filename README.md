@@ -12,3 +12,18 @@ La idea para este proyecto surge de mi propia experiencia trabajando en el negoc
 producirse errores dado el sistema de gestión utilizado. Con un cambio en dicho sistema, podrían reducirse
 los conflictos y conseguir una mejor organización.
 
+## Comandos
+
+- Comprobar sintaxis:
+  > npm run check
+- "Compilar" el proyecto:
+  > npm run build
+- Limpiar los archivos JS creados al compilar:
+  > npm run clean
+
+## Documentación adicional
+
+- [Historias de usuario](docs/user_histories.md).
+- [User Journey](docs/user_journey.md).
+- [Justificación de las herramientas elegidas](docs/tools.md).
+  

@@ -2,6 +2,10 @@ import { Constantes } from "./constantes"
 import { Error_producto } from "./errores"
 import { Tipo_producto } from "./tipo_producto";
 
+/**
+ * Representa un producto del inventario
+ * @public
+ */
 export class Producto {
     
     private _id_producto:number;
@@ -9,6 +13,14 @@ export class Producto {
     private _marca:string;
     private _tipo:Tipo_producto;
 
+    /**
+     * Constructor del objeto producto
+     * 
+     * @param id_producto ID único asignado a cada producto
+     * @param nombre Nombre del producto
+     * @param marca Marca y/o fabricante del producto
+     * @param tipo Tipo de producto en el que se enmarca
+     */
     constructor(id_producto:number, nombre:string, marca:string, tipo:Tipo_producto) {
 
         if(id_producto <= Constantes.ID_INVALIDO) {
@@ -51,25 +63,40 @@ export class Producto {
         this._tipo = tipo;
     }
 
-    //accesores
+    /**
+     * Devuelve el identificador único del producto
+     * @returns ID único del producto
+     */
     public get id_prodcuto() { 
 
         return this._id_producto;
 
     }
 
+    /**
+     * Devuelve el nombre del producto
+     * @returns Nombre del producto
+     */
     public get nombre() { 
 
         return this._nombre;   
 
     }
 
+    /**
+     * Devuelve la marca y/o fabricante del producto
+     * @returns Marca/fabricante del producto
+     */
     public get marca() { 
         
         return this._marca;
 
     }
 
+    /**
+     * Devuelve el tipo de producto
+     * @returns Tipo de producto
+     */
     public get tipo() { 
 
         return this._tipo;

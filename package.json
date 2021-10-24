@@ -1,0 +1,26 @@
+{
+    "name": "storagiv",
+    "version": "0.0.7",
+    "description": "Sistema para gestión de inventario y ventas de un negocio",
+    "scripts": {
+        "check": "tsc --noEmit",
+        "build": "tsc --build",
+        "clean": "tsc --build --clean",
+        "postclean": "rm -rf dist"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/modejota/storagiv.git"
+    },
+    "keywords": [],
+    "author": {
+        "name": "José Alberto Gómez García",
+        "email": "modej@correo.ugr.es"
+    },
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/modejota/storagiv/issues",
+        "email": "modej@correo.ugr.es"
+    },
+    "homepage": "https://github.com/modejota/storagiv"
+}

@@ -6,7 +6,7 @@ import { Producto } from "./producto";
  * @public
  */
 export class Existencias {
-    private _inventario: Map<number,[Producto, number]>
+    private _inventario: Map<number,[_producto: Producto, cantidad: number]>
 
     /**
      * Constructor del objeto existencias

@@ -48,3 +48,9 @@ Como hemos mencionado en el apartado anterior, NPM es un gestor de dependencias,
 - Se puede hacer que se lance de forma automática scripts antes y/o despúes de la orden que mandemos ejecutar.
 - Permite la declaración de variables de configuración, que podremos usar en nuestros scripts.
 - Permite invocar otras herramientas de uso común, como babel.
+
+## Framework de tests
+---
+
+Como framework de tests he decidido utilizar jest. 
+Por lo que he podido leer, tiene un gran soporte con TypeScript a través del paquete ts-jest, es bastante rápido y permite escribir test de manera rápida, sencilla y concisa.

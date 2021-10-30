@@ -6,7 +6,8 @@
         "check": "tsc --noEmit",
         "build": "tsc --build",
         "clean": "tsc --build --clean",
-        "postclean": "rm -rf dist"
+        "postclean": "rm -rf dist",
+        "test": "jest src"
     },
     "repository": {
         "type": "git",

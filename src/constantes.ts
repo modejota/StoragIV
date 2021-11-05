@@ -29,7 +29,7 @@ export abstract class Constantes {
     static readonly ID_INVALIDO: number = 0
 
     /**
-     * Valor para representar una cantidad invalida de un producto en el almacen
+     * Valor para representar una cantidad invalida de un producto
      */
     static readonly CANTIDAD_INVALIDA: number = 0
 

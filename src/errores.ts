@@ -27,9 +27,9 @@ export class Error_existencias extends Error {
 }
 
 /**
- * Clase para gestionar los posibles errores que puedan producirse al gestionar las ventas
+ * Clase para gestionar los posibles errores que puedan producirse al gestionar las facturas
  */
-export class Error_venta extends Error {
+export class Error_factura extends Error {
     /**
      * Constructor del objeto de error
      * @param msg Mensaje explicativo con el motivo del error

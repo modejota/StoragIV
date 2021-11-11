@@ -12,11 +12,11 @@ export class Factura {
     
     /**
      * Constructor del objeto ventas
-     * Crea una venta sin productos, e inicializa la fecha con la actual
+     * Crea una venta sin productos
      */
-    constructor() {
+    constructor(fecha: Date) {
         this._productos = new Map<number, [Producto, number]>()
-        this._fecha = new Date();
+        this._fecha = fecha;
     }
 
     /**

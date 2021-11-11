@@ -14,9 +14,17 @@ export class Factura {
      * Constructor del objeto ventas
      * Crea una venta sin productos
      */
-    constructor(fecha: Date) {
-        this._productos = new Map<number, [Producto, number]>()
+    constructor(fecha: Date = new Date()) {
+        this._productos = new Map<number, [Producto, number]>();
         this._fecha = fecha;
+    }
+
+    /**
+     * Devuelve la fecha en la que se genera la factura
+     * @returns Fecha de la factura
+     */
+    public get fecha() {
+        return this._fecha;
     }
 
     /**
@@ -92,10 +100,17 @@ export class Factura {
      */
     public calcular_total() {
         let total: number = 0 
-        this._productos.forEach((value: [_producto: Producto, cantidad: number], key: number, ) => {
+        this._productos.forEach((value: [_producto: Producto, cantidad: number], key: number) => {
             total += (value[0].PVP * value[1])
         })
         return total
+    }
+
+    /**
+     * Método para obtener el número de productos presentes en una factura
+     */
+    public get_num_items() {
+        return this._productos.size
     }
 
 }

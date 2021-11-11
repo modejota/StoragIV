@@ -7,7 +7,7 @@ import { Error_factura } from "./errores";
  * @public
  */
 export class Factura {
-    private _productos: Map<number,[_producto: Producto, cantidad: number]>
+    private _productos: Map<number,[_producto: Producto, cantidad: number]>;
     private _fecha: Date;
     
     /**
@@ -84,6 +84,18 @@ export class Factura {
         } else {
             throw new Error_factura( `Se intentó acceder a un producto con ID ${ID} no presente en la factura `)
         }
+    }
+
+    /**
+     * Método para calcular el total de una factura
+     * @returns Total de la factura
+     */
+    public calcular_total() {
+        let total: number = 0 
+        this._productos.forEach((value: [_producto: Producto, cantidad: number], key: number, ) => {
+            total += (value[0].PVP * value[1])
+        })
+        return total
     }
 
 }

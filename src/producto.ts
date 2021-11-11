@@ -9,6 +9,7 @@ import { Tipo_producto } from "./tipo_producto";
 export class Producto {
     
     private _id_producto:number;
+    private _PVP:number;
     private _nombre:string;
     private _marca:string;
     private _tipo:Tipo_producto;
@@ -17,11 +18,12 @@ export class Producto {
      * Constructor del objeto producto
      * 
      * @param id_producto ID único asignado a cada producto
+     * @param PVP Precio de venta del producto
      * @param nombre Nombre del producto
      * @param marca Marca y/o fabricante del producto
      * @param tipo Tipo de producto en el que se enmarca
      */
-    constructor(id_producto:number, nombre:string, marca:string, tipo:Tipo_producto) {
+    constructor(id_producto:number, PVP:number, nombre:string, marca:string, tipo:Tipo_producto) {
 
         if(id_producto <= Constantes.ID_INVALIDO) {
 
@@ -29,6 +31,7 @@ export class Producto {
 
         }
         this._id_producto = id_producto;
+
 
         if (!nombre) {
 
@@ -59,6 +62,14 @@ export class Producto {
 
         }
         this._marca = marca;
+
+        if(PVP <= Constantes.CANTIDAD_INVALIDA) {
+            
+            throw new Error_producto(` Se intentó crear un producto con ID ${id_producto}, nombre ${nombre}, marca ${marca} y PVP inválido `);
+        
+        }
+        this._PVP = PVP;
+
 
         this._tipo = tipo;
     }
@@ -101,6 +112,14 @@ export class Producto {
 
         return this._tipo;
 
+    }
+
+    /**
+     * Devuelve el precio de venta del producto
+     * @returns PVP del producto
+     */
+    public get PVP() {
+        return this._PVP;
     }
 
 }

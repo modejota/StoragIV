@@ -7,3 +7,4 @@ entidad:
 automatizar:
     fichero: package.json
     orden: npm run
+test: src/__tests__/test.ts

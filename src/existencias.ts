@@ -102,6 +102,4 @@ export class Existencias {
         return this._inventario.size
     }
 
-    
-
 }

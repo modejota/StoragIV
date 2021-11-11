@@ -20,6 +20,10 @@ los conflictos y conseguir una mejor organización.
   > npm run build
 - Limpiar los archivos JS creados al compilar:
   > npm run clean
+- Ejecutar tests
+  > npm run test
+- Ejecutar tests, comprobando la cobertura de código de los mismos
+  > npm run coverage
 
 ## Documentación adicional
 

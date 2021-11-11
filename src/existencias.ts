@@ -93,6 +93,15 @@ export class Existencias {
         else 
             throw new Error_existencias( `Se intentó actualizar la cantidad del producto con ID ${ID} no presente en el almacén `)
     
-        }
+    }
+
+    /**
+     * Método para saber el número de productos distintos en el almacén
+     */
+    public get_num_items() {
+        return this._inventario.size
+    }
+
+    
 
 }

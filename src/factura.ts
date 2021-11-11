@@ -89,9 +89,9 @@ export class Factura {
             let producto = this._productos.get(ID)?.[0]
             if(producto)    // Comprobar no es "Undefined"
                 this._productos.set(ID,[producto,new_c])
-        } else {
+        } else 
             throw new Error_factura( `Se intentó acceder a un producto con ID ${ID} no presente en la factura `)
-        }
+        
     }
 
     /**

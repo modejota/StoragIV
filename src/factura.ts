@@ -108,6 +108,7 @@ export class Factura {
 
     /**
      * Método para obtener el número de productos presentes en una factura
+     * @returns Cantidad de productos distintos en la factura
      */
     public get_num_items() {
         return this._productos.size

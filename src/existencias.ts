@@ -76,9 +76,6 @@ export class Existencias {
         if (ID <= Constantes.ID_INVALIDO) 
             throw new Error_existencias( ` Se intentó actualizar la cantidad de un producto con ID ${ID} inválido `)
         
-        //Dado que se permite incremento y decremento de la cantidad sólo se comprueba que la variación en cantidad no sea nula
-        //En dicho caso, no tendríamos ni que intentar realizar la operación
-        
         if (this._inventario.has(ID) && cantidad != Constantes.CANTIDAD_INVALIDA) {
             let pair = this._inventario.get(ID)
             if (pair) { 

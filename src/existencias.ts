@@ -81,7 +81,7 @@ export class Existencias {
         
         if (this._inventario.has(ID) && cantidad != Constantes.CANTIDAD_INVALIDA) {
             let pair = this._inventario.get(ID)
-            if (pair) { //Check is not undefined
+            if (pair) { 
                 let new_cantidad = pair[1] + cantidad
                 if (new_cantidad < Constantes.CANTIDAD_INVALIDA) {
                     throw new Error_existencias( `Se intentó actualizar la cantidad del producto con ID ${ID} de manera que obtenemos cantidad negativa `)

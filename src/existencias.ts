@@ -94,6 +94,7 @@ export class Existencias {
 
     /**
      * Método para saber el número de productos distintos en el almacén
+     * @returns Cantidad de productos distintos en el almacén
      */
     public get_num_items() {
         return this._inventario.size

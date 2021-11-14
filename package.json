@@ -7,8 +7,8 @@
         "build": "tsc --build",
         "clean": "tsc --build --clean",
         "postclean": "rm -rf dist",
-        "test": "jest src",
-        "coverage": "jest src --coverage --coverageDirectory='docs/coverage' --no-cache"
+        "test": "jest",
+        "coverage": "jest --coverage --coverageDirectory='docs/coverage' --no-cache"
     },
     "repository": {
         "type": "git",

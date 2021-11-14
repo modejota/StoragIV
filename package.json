@@ -1,12 +1,14 @@
 {
     "name": "storagiv",
-    "version": "0.0.7",
+    "version": "0.0.9",
     "description": "Sistema para gestión de inventario y ventas de un negocio",
     "scripts": {
         "check": "tsc --noEmit",
         "build": "tsc --build",
         "clean": "tsc --build --clean",
-        "postclean": "rm -rf dist"
+        "postclean": "rm -rf dist",
+        "test": "jest src",
+        "coverage": "jest src --coverage --coverageDirectory='docs/coverage' --no-cache"
     },
     "repository": {
         "type": "git",
@@ -22,5 +24,11 @@
         "url": "https://github.com/modejota/storagiv/issues",
         "email": "modej@correo.ugr.es"
     },
-    "homepage": "https://github.com/modejota/storagiv"
+    "homepage": "https://github.com/modejota/storagiv",
+    "devDependencies": {
+        "@types/jest": "^27.0.2",
+        "jest": "^27.3.1",
+        "ts-jest": "^27.0.7",
+        "typescript": "^4.4.4"
+    }
 }

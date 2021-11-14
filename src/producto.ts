@@ -12,6 +12,7 @@ export class Producto {
     private _nombre:string;
     private _marca:string;
     private _tipo:Tipo_producto;
+    private _PVP:number;
 
     /**
      * Constructor del objeto producto
@@ -20,45 +21,45 @@ export class Producto {
      * @param nombre Nombre del producto
      * @param marca Marca y/o fabricante del producto
      * @param tipo Tipo de producto en el que se enmarca
+     * @param PVP Precio de venta del producto
      */
-    constructor(id_producto:number, nombre:string, marca:string, tipo:Tipo_producto) {
+    constructor(id_producto:number, nombre:string, marca:string, tipo:Tipo_producto, PVP:number) {
 
         if(id_producto <= Constantes.ID_INVALIDO) {
-
             throw new Error_producto("Se intenta crear el producto con un ID no válido");
-
         }
         this._id_producto = id_producto;
 
-        if (!nombre) {
 
+        if (!nombre) {
             throw new Error_producto(` Se intentó crear un producto con ID ${id_producto} sin nombre `);
 
         } else if (nombre.length < Constantes.LON_NOMBRE_MIN) {
-
             throw new Error_producto(` Se intentó crear un producto con ID ${id_producto} con un nombre demasido corto `);
 
         } else if (nombre.length > Constantes.LON_NOMBRE_MAX) {
-
             throw new Error_producto(` Se intentó crear un producto con ID ${id_producto} con un nombre demasido largo `);
 
         }
         this._nombre = nombre;
 
         if(!marca) {
-
             throw new Error_producto(` Se intentó crear un producto con ID ${id_producto} y nombre ${nombre} sin marca `);
 
         } else if (marca.length < Constantes.LON_MARCA_MIN) {
-
             throw new Error_producto(` Se intentó crear un producto con ID ${id_producto} y nombre ${nombre} con una marca muy corta `);
 
         } else if (marca.length > Constantes.LON_MARCA_MAX) {
-
             throw new Error_producto(` Se intentó crear un producto con ID "${id_producto} y nombre ${nombre} con una marca muy larga`);
 
         }
         this._marca = marca;
+
+        if(PVP <= Constantes.CANTIDAD_INVALIDA) {
+            throw new Error_producto(` Se intentó crear un producto con ID ${id_producto}, nombre ${nombre}, marca ${marca} y PVP inválido `);
+        
+        }
+        this._PVP = PVP;
 
         this._tipo = tipo;
     }
@@ -67,10 +68,8 @@ export class Producto {
      * Devuelve el identificador único del producto
      * @returns ID único del producto
      */
-    public get id_prodcuto() { 
-
+    public get id_producto() { 
         return this._id_producto;
-
     }
 
     /**
@@ -78,9 +77,7 @@ export class Producto {
      * @returns Nombre del producto
      */
     public get nombre() { 
-
         return this._nombre;   
-
     }
 
     /**
@@ -88,9 +85,7 @@ export class Producto {
      * @returns Marca/fabricante del producto
      */
     public get marca() { 
-        
         return this._marca;
-
     }
 
     /**
@@ -98,9 +93,15 @@ export class Producto {
      * @returns Tipo de producto
      */
     public get tipo() { 
-
         return this._tipo;
+    }
 
+    /**
+     * Devuelve el precio de venta del producto
+     * @returns PVP del producto
+     */
+    public get PVP() {
+        return this._PVP;
     }
 
 }

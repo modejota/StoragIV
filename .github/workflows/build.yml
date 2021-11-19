@@ -1,0 +1,21 @@
+name: Update container in Dockerhub
+
+on:
+  push:
+    branches:
+      - 'main'
+  
+jobs:
+  build-container:
+    name: Build Docker container image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Publish to Docker Hub
+        uses: docker/build-push-actions@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          repository: modejota/storagiv
+          tags: latest

@@ -24,6 +24,8 @@ los conflictos y conseguir una mejor organización.
   > npm run test
 - Ejecutar tests, comprobando la cobertura de código de los mismos
   > npm run coverage
+- Construcción del contenedor Docker y ejecución de los tests en el mismo.
+  > npm run docker:build && npm run docker:run
 
 ## Documentación adicional
 

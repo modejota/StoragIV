@@ -8,7 +8,9 @@
         "clean": "tsc --build --clean",
         "postclean": "rm -rf dist",
         "test": "jest",
-        "coverage": "jest --coverage --no-cache"
+        "coverage": "jest --coverage --no-cache",
+        "docker:build": "docker build -t storagiv .",
+        "docker:run": "docker run -t -v `pwd`:/app/test storagiv"
     },
     "repository": {
         "type": "git",

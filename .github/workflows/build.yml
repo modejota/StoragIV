@@ -10,13 +10,12 @@ on:
   
 jobs:
   build-container:
-    name: Build Docker container image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Publish to Docker Hub
-        uses: docker/build-push-actions@v1
+      - name: Build container and publish to Docker Hub
+        uses: docker/build-push-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}

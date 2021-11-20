@@ -17,7 +17,7 @@ jobs:
       - name: Build container and publish to Docker Hub
         uses: docker/build-push-action@v1
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASS }}
           repository: modejota/storagiv
           tags: latest, ${{ github.run_number }}

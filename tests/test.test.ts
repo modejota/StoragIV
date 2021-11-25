@@ -1,8 +1,8 @@
-import { Error_existencias, Error_factura, Error_producto } from "../errores";
-import { Existencias } from "../existencias";
-import { Factura } from "../factura";
-import { Producto } from "../producto";
-import { Tipo_producto } from "../tipo_producto";
+import { Error_existencias, Error_factura, Error_producto } from  "../src/errores"
+import { Existencias } from "../src/existencias";
+import { Factura } from "../src/factura";
+import { Producto } from "../src/producto";
+import { Tipo_producto } from "../src/tipo_producto";
 
 let aProduct: Producto
 let almacen: Existencias

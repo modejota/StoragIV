@@ -59,3 +59,13 @@ Además, es fácil de configurar, es capaz de identificar automáticamente los f
 
 El comando utilizado para instalarlo ha sido:
   > npm i jest @types/jest ts-jest typescript -D
+
+
+## Docker
+---
+
+Utilizaremos Docker para crear un contenedor en el que poder ejecutar los test de forma aislada.
+
+La imagen base utilizada es `node:16.13-alpine`. Se ha escogido la versión mayor 16 por ser la versión LTS más reciente, y la menor 13 por ser la que tenía instalada en mi ordenador. Se elige la versión `alpine` por ocupar un espacio mínimo. Además, al no tener prácticamente librerías incluidas evitamos posibles incompatibilidades y mejoramos la seguridad. Seremos nosotros quien nos encarguemos de instalar las dependencias justas y necesarias.
+
+Adicionalmente, crearemos dos Github Action, una de ellas para que se reconstruya el contenedor automáticamente al producirse algun cambio en la rama principal, y la segunda para que se actualice el README de Dockerhub a partir del README de Github. Para esta segunda Github Action se ha utilizado una publicada por @meeDamian. Debe tenerse en cuenta que solo funciona si no se tiene habilitado F2A en Dockerhub

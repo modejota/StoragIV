@@ -4,5 +4,5 @@ node_js:
   - 16
 install:
   npm ci .
-script: npm run docker:run
+script: npm run test
 

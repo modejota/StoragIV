@@ -6,4 +6,4 @@ jobs:
       image: modejota/storagiv:latest
     steps:
       - checkout
-      - run: npm run docker:run
+      - run: docker run -t -v `pwd`:/app/test storagiv

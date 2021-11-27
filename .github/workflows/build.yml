@@ -19,7 +19,6 @@ jobs:
           repository: modejota/storagiv
           tags: latest, ${{ github.run_number }}
       - name: Sync README
-        uses: actions/checkout@master
         uses: meeDamian/sync-readme@v1.0.6
         with:
           pass: ${{ secrets.DOCKER_PASS }}

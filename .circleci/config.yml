@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      image: modejota/storagiv:latest
+      - image: modejota/storagiv:latest
     steps:
       - checkout
       - run: docker run -t -v `pwd`:/app/test storagiv

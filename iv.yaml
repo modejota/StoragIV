@@ -8,4 +8,4 @@ automatizar:
     fichero: package.json
     orden: npm run
 test: tests/test.test.ts
-CI: .travis.yml
+CI: .circleci/config.yml

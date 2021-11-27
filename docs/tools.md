@@ -68,4 +68,12 @@ Utilizaremos Docker para crear un contenedor en el que poder ejecutar los test d
 
 La imagen base utilizada es `node:16.13-alpine`. Se ha escogido la versión mayor 16 por ser la versión LTS más reciente, y la menor 13 por ser la que tenía instalada en mi ordenador. Se elige la versión `alpine` por ocupar un espacio mínimo. Además, al no tener prácticamente librerías incluidas evitamos posibles incompatibilidades y mejoramos la seguridad. Seremos nosotros quien nos encarguemos de instalar las dependencias justas y necesarias.
 
-Adicionalmente, crearemos dos Github Action, una de ellas para que se reconstruya el contenedor automáticamente al producirse algun cambio en la rama principal, y la segunda para que se actualice el README de Dockerhub a partir del README de Github. Para esta segunda Github Action se ha utilizado una publicada por @meeDamian. Debe tenerse en cuenta que solo funciona si no se tiene habilitado F2A en Dockerhub
+Adicionalmente, crearemos dos Github Action, una de ellas para que se reconstruya el contenedor automáticamente al producirse algun cambio en la rama principal, y la segunda para que se actualice el README de Dockerhub a partir del README de Github. Para esta segunda Github Action se ha utilizado una publicada por @meeDamian. Debe tenerse en cuenta que solo funciona si no se tiene habilitado F2A en Dockerhub.
+
+## Servicio de integración continua
+---
+
+En el marco del objetivo 6 debemos elegir dos sistemas de integración continua. 
+El primero de ellos es Travis CI. El motivo por el que ha sido elegido es por su gran facilidad de uso, permitiendo una rápida configuración, especialmente a la hora de probar distintas versiones de un lenguaje. La principal pega ha sido el tener que introducir la tarjeta de crédito para acceder al servicio "gratuito", pero no me termina de importar demasiado (espero que me devuelvan el dólar que me han retenido).
+El segundo de ellos es Circle CI, el cual no requiere aportar método de pago para usar el plan gratuito (siendo estudiante al menos). Tras testearlo un poco, parece sencillo de utilizar. Una ventaja es que la propia herramienta te ofrece plantillas de ficheros de configuración en función del lenguaje que detecte en tu repositorio, aunque, como desventaja, se puede mencionar el hecho de que se deben tener en cuenta cosas que Travis CI da por supuestas (checkout del código, o tener que activar los Github Check, por ejemplo).
+

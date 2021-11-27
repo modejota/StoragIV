@@ -1,9 +1,6 @@
-name: Update container in Dockerhub
+name: Update container and README in Dockerhub
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
@@ -21,3 +18,9 @@ jobs:
           password: ${{ secrets.DOCKER_PASS }}
           repository: modejota/storagiv
           tags: latest, ${{ github.run_number }}
+      - name: Sync README
+        uses: actions/checkout@master
+        uses: meeDamian/sync-readme@v1.0.6
+        with:
+          pass: ${{ secrets.DOCKER_PASS }}
+          description: true

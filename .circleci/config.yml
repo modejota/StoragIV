@@ -1,9 +1,16 @@
 version: 2.1
 
 jobs:
-  build:
-    docker:
-      - image: modejota/storagiv:latest
+  docker-tests:
+    machine:
+      image: ubuntu-2004:202010-01
     steps:
       - checkout
-      - run: docker run -t -v `pwd`:/app/test storagiv
+      - run:
+          name: Lanzar tests
+          command: docker run -t -v `pwd`:/app/test modejota/storagiv
+
+workflows:
+  tests:
+    jobs:
+      - docker-tests

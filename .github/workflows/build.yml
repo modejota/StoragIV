@@ -1,9 +1,13 @@
-name: Update container and README in Dockerhub
+name: Update container in Dockerhub
 
 on:
   pull_request:
     branches:
       - main
+    paths:
+      - 'Dockerfile'
+      - 'package.json'
+      - 'package-lock.json'
   
 jobs:
   build-container:
@@ -11,24 +15,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Check changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v11.7
       - name: Build container and publish to Docker Hub
-        if: |
-          contains(steps.changed-files.output.modified-files, 'Dockerfile') ||
-          contains(steps.changed-files.output.modified-files, 'package.json') ||
-          contains(steps.changed-files.output.modified-files, 'package-lock.json')
         uses: docker/build-push-action@v1
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASS }}
           repository: modejota/storagiv
           tags: latest
-      - name: Sync README
-        if: |
-          contains(steps.changed-files.output.modified-files, 'README.md')
-        uses: meeDamian/sync-readme@v1.0.6
-        with:
-          pass: ${{ secrets.DOCKER_PASS }}
-          description: true
+

@@ -68,10 +68,9 @@ Utilizaremos Docker para crear un contenedor en el que poder ejecutar los test d
 
 La imagen base utilizada es `node:16.13-alpine`. Se ha escogido la versión mayor 16 por ser la versión LTS más reciente, y la menor 13 por ser la que tenía instalada en mi ordenador. Se elige la versión `alpine` por ocupar un espacio mínimo. Además, al no tener prácticamente librerías incluidas evitamos posibles incompatibilidades y mejoramos la seguridad. Seremos nosotros quien nos encarguemos de instalar las dependencias justas y necesarias.
 
-Adicionalmente, he creado una Github Action que realiza las siguientes tareas:
-- Comprueba los ficheros que han cambiado. Se hace uso de la Github Action de @tj-actions para realizar dicha comprobación.
-- Si ha cambiado el Dockerfile, package.json o package-lock.json, reconstruye el contenedor y lo publica en Dockerhub.
-- Si ha cambiado el fichero README.md, se utiliza una Github Action publicada por @meeDemain para actualizarlo en DockerHub. Debe tenerse en cuenta que esta Github Action solo funciona si no se tiene habilitado F2A en DockerHub. Se aprovecha también para actualizar la descripción del repositorio (máximo 100 caracteres en Dockerhub), aunque esta no debería variar con el tiempo.
+Adicionalmente, he creado dos Github Action que realizan las siguientes tareas:
+- La primera de ellas comprueba si ha cambiado el Dockerfile, package.json o package-lock.json; en caos de ser así reconstruye el contenedor y lo publica en Dockerhub.
+- La segunda comprueba si ha cambiado el fichero README.md; en caso de ser así se utiliza una Github Action publicada por @meeDemain para actualizarlo en DockerHub. Debe tenerse en cuenta que esta Github Action solo funciona si no se tiene habilitado F2A en DockerHub. Se aprovecha también para actualizar la descripción del repositorio (máximo 100 caracteres en Dockerhub), aunque esta no debería variar con el tiempo.
 
 
 ## Servicio de integración continua

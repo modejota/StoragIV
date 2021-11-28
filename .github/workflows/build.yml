@@ -26,9 +26,9 @@ jobs:
           repository: modejota/storagiv
           tags: latest
       - name: Sync README
-        uses: meeDamian/sync-readme@v1.0.6
-        with:
         if: |
           contains(steps.changed-files.output.modified-files, 'README.md')
-        pass: ${{ secrets.DOCKER_PASS }}
-        description: true
+        uses: meeDamian/sync-readme@v1.0.6
+        with:
+          pass: ${{ secrets.DOCKER_PASS }}
+          description: true

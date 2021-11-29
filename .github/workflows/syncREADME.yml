@@ -1,7 +1,7 @@
 name: Update README in Dockerhub
 
 on:
-  pull_request:
+  push:
     branches:
       - main
     paths:

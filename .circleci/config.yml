@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Lanzar tests
+          name: Lanzar contenedor
           command: docker run -t -v `pwd`:/app/test modejota/storagiv
 
 workflows:

@@ -95,7 +95,7 @@ export class Factura {
     }
 
     /**
-     * Método para calcular el total de una factura
+     * Método para calcular el importe total de una factura
      * @returns Total de la factura
      */
     public calcular_total() {

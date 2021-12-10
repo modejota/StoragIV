@@ -1,6 +1,6 @@
 import { Producto } from "./producto";
-import { Constantes } from "./constantes";
-import { Error_factura } from "./errores";
+import { Constantes } from "../constantes";
+import { Error_factura } from "../errores";
 
 /**
  * Representa una factura del negocio

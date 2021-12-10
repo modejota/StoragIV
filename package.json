@@ -1,12 +1,12 @@
 {
     "name": "storagiv",
-    "version": "0.0.9",
+    "version": "0.0.11",
     "description": "Sistema para gestión de inventario y ventas de un negocio",
     "scripts": {
         "check": "tsc --noEmit",
         "build": "tsc --build",
         "clean": "tsc --build --clean",
-        "postclean": "rm -rf dist",
+        "postclean": "rm -rf dist && rm -rf docs/coverage",
         "test": "jest",
         "coverage": "jest --coverage --no-cache",
         "docker:build": "docker build -t storagiv .",
@@ -35,6 +35,7 @@
     },
     "dependencies": {
         "dotenv": "^10.0.0",
+        "etcd3": "^1.1.0",
         "pino": "^7.5.1"
     }
 }

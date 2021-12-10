@@ -38,3 +38,16 @@ export class Error_factura extends Error {
         super(msg)
     }
 }
+
+/**
+ * Clase para gestionar los posibles errores que puedan producirse en el gestor
+ */
+ export class Error_handler extends Error {
+    /**
+     * Constructor del objeto de error
+     * @param msg Mensaje explicativo con el motivo del error
+     */
+    constructor(msg: string) {
+        super(msg)
+    }
+}

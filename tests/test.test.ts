@@ -1,64 +1,63 @@
-import { Error_existencias, Error_factura, Error_producto } from  "../src/errores"
-import { Existencias } from "../src/existencias";
-import { Factura } from "../src/factura";
-import { Producto } from "../src/producto";
-import { Tipo_producto } from "../src/tipo_producto";
+import { Error_existencias, Error_factura, Error_handler, Error_producto } from  "../src/errores"
+import { Existencias } from "../src/models/existencias";
+import { Factura } from "../src/models/factura";
+import { Producto } from "../src/models/producto";
+import { Tipo_producto } from "../src/models/tipo_producto";
+import { Handler } from "../src/handler";
 
 let aProduct: Producto
-let almacen: Existencias
-let factura: Factura
+let theHandler: Handler
 
 beforeAll(() => {
-    almacen = new Existencias()
-    factura = new Factura()
-    aProduct = new Producto(1,"Casio F91W","Casio",Tipo_producto.RELOJERIA_COTIDIANA,12.90)
+    theHandler = new Handler()
+    aProduct = theHandler.crear_producto(1,"Casio F91W","Casio",Tipo_producto.RELOJERIA_COTIDIANA,12.90) 
 })
 
-describe('Clase Producto', () => {
-    it('Comprobar creación de producto', () => {
+describe('Tests de toda la aplicación', () => {
+    it('Creacion de productos', () => {
         const invalidID = () => {
-            new Producto(-1,"","",Tipo_producto.UNDEFINED,0.00)
+            theHandler.crear_producto(-1,"","",Tipo_producto.UNDEFINED,0.00)
         };
-        expect(invalidID).toThrow(Error_producto)  
-        
+        expect(invalidID).toThrow(Error_handler)  
+
         const noName = () => {
-            new Producto(1,"","",Tipo_producto.UNDEFINED,0.00)
+            theHandler.crear_producto(1,"","",Tipo_producto.UNDEFINED,0.00)
         };
-        expect(noName).toThrow(Error_producto) 
+        expect(noName).toThrow(Error_handler) 
 
         const shortName = () => {
-            new Producto(1,"A","",Tipo_producto.UNDEFINED,0.00)
+            theHandler.crear_producto(1,"A","",Tipo_producto.UNDEFINED,0.00)
         };
-        expect(shortName).toThrow(Error_producto)  
+        expect(shortName).toThrow(Error_handler)  
 
         const longName = () => {
-            new Producto(1,"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","",Tipo_producto.UNDEFINED,0.00)
+            theHandler.crear_producto(1,"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","",Tipo_producto.UNDEFINED,0.00)
         };
-        expect(longName).toThrow(Error_producto)  
+        expect(longName).toThrow(Error_handler)  
 
         const noBrand = () => {
-            new Producto(1,"Colonia de prueba","",Tipo_producto.UNDEFINED,0.00)
+            theHandler.crear_producto(1,"Colonia de prueba","",Tipo_producto.UNDEFINED,0.00)
         };
-        expect(noBrand).toThrow(Error_producto)  
+        expect(noBrand).toThrow(Error_handler)  
 
         const shortBrand = () => {
-            new Producto(1,"Colonia de prueba","A",Tipo_producto.UNDEFINED,0.00)
+            theHandler.crear_producto(1,"Colonia de prueba","A",Tipo_producto.UNDEFINED,0.00)
         };
-        expect(shortBrand).toThrow(Error_producto)  
+        expect(shortBrand).toThrow(Error_handler)  
 
         const longBrand = () => {
-            new Producto(1,"Colonia de prueba",
+            theHandler.crear_producto(1,"Colonia de prueba",
                             "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",Tipo_producto.UNDEFINED,0.00)
         };
-        expect(longBrand).toThrow(Error_producto)  
+        expect(longBrand).toThrow(Error_handler)  
         
         const freePrice = () => {
-            new Producto(1,"Colonia de prueba","Testing brand",Tipo_producto.UNDEFINED,0.00)
+            theHandler.crear_producto(1,"Colonia de prueba","Testing brand",Tipo_producto.UNDEFINED,0.00)
         };
-        expect(freePrice).toThrow(Error_producto)  
+        expect(freePrice).toThrow(Error_handler)  
     })
 
-    it('Comprobar getters', () => {
+    it('Comprobar getters del producto', () => {
         expect(aProduct.id_producto).toBe(1)
         expect(aProduct.nombre).toBe("Casio F91W")
         expect(aProduct.marca).toBe("Casio")
@@ -66,166 +65,227 @@ describe('Clase Producto', () => {
         expect(aProduct.PVP).toBe(12.90)
     })
 
-})
+    it('Crear y añadir factura', () => {
+        theHandler.crear_factura(1)
+        expect(theHandler.get_num_items_factura(1) == 1)
 
-
-describe('Clase Factura', () => {
-    it('Comprobar añadir producto a factura', () => {
-        const invalidQuantity = () => {
-            factura.aniadir_producto(aProduct,-99)
+        const repeatedID = () => {
+            theHandler.crear_factura(1)
         };
-        expect(invalidQuantity).toThrow(Error_factura)
+        expect(repeatedID).toThrow(Error_handler)
+
+        const invalidID = () => {
+            theHandler.crear_factura(-10)
+        };
+        expect(invalidID).toThrow(Error_handler)
+    })
+
+    it('Obtener factura', () => {
+        let factura = theHandler.obtener_factura(1)
+        let actual_date = new Date()
+        expect(factura.fecha.toISOString().split('T')[0]).toStrictEqual(actual_date.toISOString().split('T')[0])
+
+        const invalidID = () => {
+            theHandler.obtener_factura(-1)
+        };
+        expect(invalidID).toThrow(Error_handler)
+
+        const noExistingID = () => {
+            theHandler.obtener_factura(67)
+        };
+        expect(noExistingID).toThrow(Error_handler)
+    })
+
+    it('Comprobar añadir producto a factura', () => {
+        const invalidID_factura = () => {
+            theHandler.aniadir_producto_factura(-10,aProduct,-99)
+        };
+        expect(invalidID_factura).toThrow(Error_handler)
         
-        factura.aniadir_producto(aProduct,3)
+        const invalidQuantity = () => {
+            theHandler.aniadir_producto_factura(1,aProduct,-99)
+        };
+        expect(invalidQuantity).toThrow(Error_handler)
+        
+        theHandler.aniadir_producto_factura(1,aProduct,3)
         
         const alreadyExistingID = () => {
-            factura.aniadir_producto(aProduct,5)
+            theHandler.aniadir_producto_factura(1,aProduct,5)
         };
-        expect(alreadyExistingID).toThrow(Error_factura)        
+        expect(alreadyExistingID).toThrow(Error_handler)        
     })
 
     it('Comprobar obtener producto de factura', () => {
-        let pair = factura.obtener_producto(1)
+        const invalidFactura = () => {
+            theHandler.obtener_producto_factura(4,1)
+        };
+        expect(invalidFactura).toThrow(Error_handler)
+        
+        const invalidProducto = () => {
+            theHandler.obtener_producto_factura(1,-2)
+        };
+        expect(invalidProducto).toThrow(Error_handler)    
+        
+        const noExstingProducto = () => {
+            theHandler.obtener_producto_factura(1,99)
+        };
+        expect(noExstingProducto).toThrow(Error_handler)   
+    
+        let pair = theHandler.obtener_producto_factura(1,1)
         expect(pair?.[0].id_producto).toBe(1)
         expect(pair?.[1]).toBe(3)
-
-        const invalidID = () => {
-            factura.obtener_producto(-2)
-        };
-        expect(invalidID).toThrow(Error_factura) 
-
-        const noExistingID = () => {
-            factura.obtener_producto(99)
-        };
-        expect(noExistingID).toThrow(Error_factura) 
-    })
-
-    it('Comprobar eliminar producto de factura', () => {
-        const invalidID = () => {
-            factura.eliminar_producto(-2)
-        };
-        expect(invalidID).toThrow(Error_factura) 
-
-        const noExistingID = () => {
-            factura.eliminar_producto(5)
-        };
-        expect(noExistingID).toThrow(Error_factura) 
-
-        factura.eliminar_producto(1)
-        expect(factura.get_num_items()).toBe(0)
-    })
-    
-    
-    it('Comprobar fecha de factura', () => {
-        let actual_date = new Date()
-        expect(factura.fecha.toISOString().split('T')[0]).toStrictEqual(actual_date.toISOString().split('T')[0])
-    })
-
-    it('Comprobar total de la factura', () => {
-        let product2 = new Producto(2,"Giorgio Armani My Way","Giorgio Armano",Tipo_producto.PERFUME,42.70)
-        let product3 = new Producto(3,"Huawei Watch 3","Huawei",Tipo_producto.RELOJERIA_PREMIUM,269.90)
-        let product4 = new Producto(4,"Opel Corsa","Opel",Tipo_producto.UNDEFINED,2199.99)
-
-        factura.aniadir_producto(aProduct,3)
-        factura.aniadir_producto(product2,2)
-        factura.aniadir_producto(product3,4)
-        factura.aniadir_producto(product4)
         
-        let expected_total = 12.90*3+42.70*2+269.90*4
-        expect(factura.calcular_total().toFixed(2)).toStrictEqual(expected_total.toFixed(2)) 
+        const noExistingFactura2 = () => {
+            theHandler.get_num_items_factura(100)
+        };
+        expect(noExistingFactura2).toThrow(Error_handler)    
+
     })
 
     it('Comprobar actualizar cantidad de producto en factura', () => {
-        const invalidID = () => {
-            factura.actualizar_cantidad_producto(-1,24)
+        const invalidID_factura = () => {
+            theHandler.actualizar_cantidad_producto_factura(-1,-1,24)
         };
-        expect(invalidID).toThrow(Error_factura) 
+        expect(invalidID_factura).toThrow(Error_handler) 
+
+        const invalidID_producto = () => {
+            theHandler.actualizar_cantidad_producto_factura(1,-1,24)
+        };
+        expect(invalidID_producto).toThrow(Error_handler) 
 
         const invalidQuantity = () => {
-            factura.actualizar_cantidad_producto(1,-4)
+            theHandler.actualizar_cantidad_producto_factura(1,1,-4)
         };
-        expect(invalidQuantity).toThrow(Error_factura) 
+        expect(invalidQuantity).toThrow(Error_handler) 
 
         const noExistingID = () => {
-            factura.actualizar_cantidad_producto(112,4)
+            theHandler.actualizar_cantidad_producto_factura(1,112,4)
         };
-        expect(noExistingID).toThrow(Error_factura) 
+        expect(noExistingID).toThrow(Error_handler) 
 
-        factura.actualizar_cantidad_producto(1,7)
-        expect(factura.obtener_producto(1)?.[1]).toBe(7)  
+        theHandler.actualizar_cantidad_producto_factura(1,1,7)
+        expect(theHandler.obtener_producto_factura(1,1)?.[1]).toBe(7)  
     })
 
-})
+    it('Comprobar total de la factura', () => {
+        let product2 = theHandler.crear_producto(2,"Giorgio Armani My Way","Giorgio Armano",Tipo_producto.PERFUME,42.70)
+        let product3 = theHandler.crear_producto(3,"Huawei Watch 3","Huawei",Tipo_producto.RELOJERIA_PREMIUM,269.90)
+        let product4 = theHandler.crear_producto(4,"Opel Corsa","Opel",Tipo_producto.UNDEFINED,2199.99)
 
+        theHandler.aniadir_producto_factura(1,product2,2)
+        theHandler.aniadir_producto_factura(1,product3,4)
+        theHandler.aniadir_producto_factura(1,product4)
+        
+        let expected_total = 12.90*7+42.70*2+269.90*4
+        expect(theHandler.calcular_total_factura(1).toFixed(2)).toStrictEqual(expected_total.toFixed(2)) 
 
-describe('Clase Existencias', ()  => {
+        const noExistingFactura = () => {
+            theHandler.calcular_total_factura(4)
+        };
+        expect(noExistingFactura).toThrow(Error_handler)
+
+    })
+
+    it('Eliminar producto de factura y eliminar factura', () => {
+        const invalidFactura = () => {
+            theHandler.eliminar_producto_factura(-4,1)
+        };
+        expect(invalidFactura).toThrow(Error_handler)
+
+        const noExistingProducto = () => {
+            theHandler.eliminar_producto_factura(1,400)
+        };
+        expect(noExistingProducto).toThrow(Error_handler)      
+        
+        const invalidProducto = () => {
+            theHandler.eliminar_producto_factura(1,-5)
+        };
+        expect(invalidProducto).toThrow(Error_handler)    
+    
+        theHandler.eliminar_producto_factura(1,1)
+        expect(theHandler.get_num_items_factura(1)).toBe(3)
+
+        theHandler.eliminar_factura(1)
+        expect(theHandler.get_num_facturas()).toBe(0)
+
+        const noExistingFactura = () => {
+            theHandler.eliminar_factura(4)
+        };
+        expect(noExistingFactura).toThrow(Error_handler)
+        
+    })
+
     it("Añadir productos al almacén", () => {
         const invalidQuantity = () => {
-            almacen.aniadir_producto(aProduct,-99)
+            theHandler.aniadir_producto_almacen(aProduct,-99)
         };
-        expect(invalidQuantity).toThrow(Error_existencias); 
+        expect(invalidQuantity).toThrow(Error_handler); 
         
-        almacen.aniadir_producto(aProduct)
+        theHandler.aniadir_producto_almacen(aProduct)
         const alreadyExistingID = () => {
-            almacen.aniadir_producto(aProduct,12)
+            theHandler.aniadir_producto_almacen(aProduct,12)
         };
-        expect(alreadyExistingID).toThrow(Error_existencias); 
+        expect(alreadyExistingID).toThrow(Error_handler); 
 
     })
 
     it("Obtener productos del almacen", () => {
         const invalidID = () => {
-            almacen.obtener_producto(-4)
+            theHandler.obtener_producto_almacen(-4)
         };
-        expect(invalidID).toThrow(Error_existencias); 
+        expect(invalidID).toThrow(Error_handler); 
 
         const noExistingID = () => {
-            almacen.obtener_producto(121)
+            theHandler.obtener_producto_almacen(121)
         };
-        expect(noExistingID).toThrow(Error_existencias);  
+        expect(noExistingID).toThrow(Error_handler);  
+
+        let otherProduct = theHandler.obtener_producto_almacen(1)
     })
 
     it("Eliminar productos del almacen", () => {
         const invalidID = () => {
-            almacen.eliminar_producto(-4)
+            theHandler.eliminar_producto_almacen(-4)
         };
-        expect(invalidID).toThrow(Error_existencias); 
+        expect(invalidID).toThrow(Error_handler); 
 
         const noExistingID = () => {
-            almacen.eliminar_producto(121)
+            theHandler.eliminar_producto_almacen(121)
         };
-        expect(noExistingID).toThrow(Error_existencias);  
+        expect(noExistingID).toThrow(Error_handler);  
 
-        almacen.eliminar_producto(1)
-        expect(almacen.get_num_items()).toBe(0)
+        theHandler.eliminar_producto_almacen(1)
+        expect(theHandler.get_num_items_almacen()).toBe(0)
     })
 
     it("Asegurar cantidades positivas en el almacén", () => {
         const invalidID = () => {
-            almacen.actualizar_cantidad_producto(-1,99)
+            theHandler.actualizar_cantidad_producto_almacen(-1,99)
         };
-        expect(invalidID).toThrow(Error_existencias); 
+        expect(invalidID).toThrow(Error_handler); 
         
-        almacen.aniadir_producto(aProduct)
-        almacen.actualizar_cantidad_producto(1,4)
-        expect(almacen.obtener_producto(1)?.[1]).toBe(4)    
+        theHandler.aniadir_producto_almacen(aProduct)
+        theHandler.actualizar_cantidad_producto_almacen(1,4)
+        expect(theHandler.obtener_producto_almacen(1)?.[1]).toBe(4)    
 
-        almacen.actualizar_cantidad_producto(1,-2)
-        expect(almacen.obtener_producto(1)?.[1]).toBe(2) 
+        theHandler.actualizar_cantidad_producto_almacen(1,-2)
+        expect(theHandler.obtener_producto_almacen(1)?.[1]).toBe(2) 
 
         const negativeQuantity = () => {
-            almacen.actualizar_cantidad_producto(1,-400)
+            theHandler.actualizar_cantidad_producto_almacen(1,-400)
         };
-        expect(negativeQuantity).toThrow(Error_existencias); 
+        expect(negativeQuantity).toThrow(Error_handler); 
 
         const noExistingID = () => {
-            almacen.actualizar_cantidad_producto(121,4)
+            theHandler.actualizar_cantidad_producto_almacen(121,4)
         };
-        expect(noExistingID).toThrow(Error_existencias); 
+        expect(noExistingID).toThrow(Error_handler); 
 
     })
 
+    
 })
+
 
 
 

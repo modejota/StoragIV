@@ -1,4 +1,4 @@
-import { Etcd3 } from "etcd3"
+import { Etcd3 } from "etcd3";
 require('dotenv').config({
     path: '../config/configuration.env'
 })
@@ -17,8 +17,8 @@ export class Configuration {
     constructor() {
 
         (async () => {
-            this._log_directory = await client.get('LOG_DIR').string().catch(err => {})
-        })()
+            this._log_directory = await client.get('LOG_DIR').string().catch(err =>{});
+        })();
         if(this._log_directory == null && process.env.LOG_DIR != undefined) {
             this._log_directory = process.env.LOG_DIR
         } else {
@@ -26,8 +26,8 @@ export class Configuration {
         }
 
         (async () => {
-            this._log_file = await client.get('LOG_FILE').string().catch(err => {})
-        })()
+            this._log_file = await client.get('LOG_FILE').string().catch(err =>{});
+        })();
         if(this._log_file == null && process.env.LOG_FILE != undefined) {
             this._log_file = process.env.LOG_FILE
         } else {

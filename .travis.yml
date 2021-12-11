@@ -2,6 +2,9 @@ language: node_js
 node_js:
   - 14
   - node
+before_install:
+  - mkdir $LOG_DIR
+  - chmod o+w $LOG_DIR
 install:
   npm ci 
 script: npm run test

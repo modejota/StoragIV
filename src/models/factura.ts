@@ -76,7 +76,7 @@ export class Factura {
     /**
      * Método para actualizar la cantidad de un producto en una factura
      * @param ID Identificador único del producto
-     * @new_c Nueva cantidad del producto con identificador ID
+     * @param new_c Nueva cantidad del producto con identificador ID
      */
     public actualizar_cantidad_producto(ID: number, new_c: number) {
         if (ID <= Constantes.ID_INVALIDO)

@@ -7,8 +7,8 @@
         "build": "tsc --build",
         "clean": "tsc --build --clean",
         "postclean": "rm -rf dist && rm -rf docs/coverage",
-        "test": "jest",
-        "coverage": "jest --coverage --no-cache",
+        "test": "jest --detectOpenHandles",
+        "coverage": "jest --detectOpenHandles --coverage --no-cache",
         "docker:build": "docker build -t storagiv .",
         "docker:run": "docker run -t -v `pwd`:/app/test storagiv"
     },

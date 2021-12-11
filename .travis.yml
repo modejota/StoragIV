@@ -2,6 +2,9 @@ language: node_js
 node_js:
   - 14
   - node
+before_script:
+  - sudo mdkir $LOG_DIR
+  - sudo chown travis $LOG_DIR
 install:
   npm ci 
 script: npm run test

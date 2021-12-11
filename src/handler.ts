@@ -1,9 +1,9 @@
-import { Error_existencias, Error_factura, Error_producto, Error_handler } from  "./errores"
+import { Error_existencias, Error_factura, Error_producto, Error_handler } from  "./errores";
 import { Existencias } from "./models/existencias";
 import { Factura } from "./models/factura";
 import { Producto } from "./models/producto";
 import { Tipo_producto } from "./models/tipo_producto";
-import { logger } from "./logger"
+import { logger } from "./logger";
 import { Constantes } from "./constantes";
 
 export class Handler {

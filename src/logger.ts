@@ -1,5 +1,5 @@
-import { Configuration } from './configuration'
-import * as fs from 'fs'
+import { Configuration } from './configuration';
+import * as fs from 'fs';
 
 const configuration = new Configuration()
 const log_directory = configuration.log_directory

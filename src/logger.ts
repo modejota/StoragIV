@@ -11,4 +11,5 @@ if(!fs.existsSync(log_directory)) {
 
 const pino = require('pino')
 const destination = pino.destination(log_file_path)
+
 export const logger = pino(destination)

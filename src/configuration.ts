@@ -3,8 +3,9 @@ require('dotenv').config({
     path: '../config/configuration.env'
 })
 const client = new Etcd3();
+
 /**
- * Representa los valores para la configuración de la aplicación
+ * Clase para representar los valores para la configuración de la aplicación
  * @public
  */
 export class Configuration {

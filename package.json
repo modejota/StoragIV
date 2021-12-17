@@ -1,14 +1,14 @@
 {
     "name": "storagiv",
-    "version": "0.0.9",
+    "version": "0.0.11",
     "description": "Sistema para gestión de inventario y ventas de un negocio",
     "scripts": {
         "check": "tsc --noEmit",
         "build": "tsc --build",
         "clean": "tsc --build --clean",
-        "postclean": "rm -rf dist",
-        "test": "jest",
-        "coverage": "jest --coverage --no-cache",
+        "postclean": "rm -rf dist && rm -rf docs/coverage",
+        "test": "jest --detectOpenHandles",
+        "coverage": "jest --detectOpenHandles --coverage --no-cache",
         "docker:build": "docker build -t storagiv .",
         "docker:run": "docker run -t -v `pwd`:/app/test storagiv"
     },
@@ -32,5 +32,10 @@
         "jest": "^27.3.1",
         "ts-jest": "^27.0.7",
         "typescript": "^4.4.4"
+    },
+    "dependencies": {
+        "dotenv": "^10.0.0",
+        "etcd3": "^1.1.0",
+        "pino": "^7.5.1"
     }
 }

@@ -1,5 +1,5 @@
-import { Constantes } from "./constantes"
-import { Error_producto } from "./errores"
+import { Constantes } from "../constantes";
+import { Error_producto } from "../errores";
 import { Tipo_producto } from "./tipo_producto";
 
 /**

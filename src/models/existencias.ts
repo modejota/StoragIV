@@ -1,5 +1,5 @@
-import { Constantes } from "./constantes";
-import { Error_existencias } from "./errores";
+import { Constantes } from "../constantes";
+import { Error_existencias } from "../errores";
 import { Producto } from "./producto";
 
 /**

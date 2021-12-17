@@ -7,8 +7,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Lanzar tests
-          command: docker run -t -v `pwd`:/app/test modejota/storagiv
+          name: Lanzar contenedor
+          command: docker run -e LOG_DIR=$LOG_DIR -e LOG_FILE=$LOG_FILE -t -v `pwd`:/app/test modejota/storagiv
 
 workflows:
   tests:

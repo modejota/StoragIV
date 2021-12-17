@@ -86,3 +86,37 @@ El segundo de ellos es Circle CI, el cual no requiere aportar método de pago pa
 Se valoró también utilizar Semaphore CI, el cual es sumamente parecido a Circle CI, hasta el punto de no poder encontrar ninguna diferencia reseñable más allá de las diferencias en los ficheros de configuración (ambos sencillos). Me descarté por Circle CI por ser el que mejores críticas tenía en distintas webs de comparativas y valoraciones, además de ser el que se comprueba obligatoriamente en los test de la asignatura.
 
 Cabe también mencionar que en Travis CI ejecuto los test a partir del código fuente, ya que en dicha plataforma sería más sencillo testearlo para distintas versiones del lenguaje (aunque por lo que he visto en Circle CI no es complejo). En Circle CI trabajo a partir del contenedor Docker, por aprovechar lo que hicimos en el objetivo anterior.
+
+En el marco del objetivo 7, se han tenido que añadir variables de entorno a ambos sistemas de integración continua, dado que no subimos el fichero .env al repositorio. Es tan sencillo como ir al panel de control de cada sistema, entrar en ajustes, clickar en el menú correspondiente y añadirlas. Adicionalmente, dado que CircleCI utiliza el contenedor Docker, se ha tenido que modificar la orden de ejecución para que tome dichas variables de entorno.
+
+## Logger
+---
+
+Necesitamos disponer de un servicio que nos permita mantener un registro de lo que sucede en nuestra aplicación, es decir necesitamos un logger.
+
+Los principales requisitos que busco que tenga un logger es la capacidad de exportar los datos en formato JSON (para luego poder usar servicios como logz.io si se quisiese), que pueda trabajar con Typescript sin problemas, y que introduzca el menor overhead posible. Deseable es también que la configuración sea lo más sencilla posible.
+
+El primer logger que probé fue [tslog](https://www.npmjs.com/package/tslog). Al leer las características tenía muy buena pinta:
+- Estaba escrito en Typescript, por lo que debería funcionar sin problema
+- Permitía salida a fichero JSON o "embellecido" por terminal
+- Parecía marcar los errores con bastante precisión
+
+Pero cuando lo probé no conseguí que la salida por terminal funcionase correctamente (se pisaba con el texto de Jest), no reconocía los errores si se producían en constructores y la información de los mismos al exportar a JSON no era demasiada. 
+
+Barajé también usar [typescript-loggin](https://www.npmjs.com/package/typescript-logging), pero al probarlo me pareció algo complicado, y, además, llevaba más de un año sin actualizarse, por lo que decidí seguir buscando. No es que funcionara mal, todo sea dicho.
+
+Buscando herramientas más "profesionales" acabé probando [winston](https://www.npmjs.com/package/winston). Había leído muy buenas reseñas sobre él, pero no conseguí hacerlo funcionar correctamente. Se suponía que traía instalado los types para Typescript, pero no los reconocía, y si los instalaba manualmente entraban en conflicto con los que se suponía que traía. A pesar de tener muchísimas descargas y aparente buena fama, el hecho de que llevará más de un año sin actualizarse no me dió demasiada buena espina, así que decidí seguir buscando.
+
+Finalmente, acabé decantandome por [pino](https://www.npmjs.com/package/pino). Este cumplía los requisitos que se especificaban al principio de esta sección, funcionaba con Typescript perfectamente (este sí traía los types instalados y no daba problemas), permitía exportar en formato JSON y tenía muy poco overhead (de hecho, según diversas comparativas que he consultado, es el que menos tiene, pudiendo consumir la mitad de recursos que Winston u otros logger como Roarr o Bunyan). Adicionalmente, la configuración es bastante sencilla.
+
+Además, existe un paquete adicional llamado [pino-pretty](https://github.com/pinojs/pino-pretty) que permite embellecer la salida por terminal de una forma realmente sencilla. Lo probé y también funcionaba perfectamente, tenía muchas opciones y permite personalizar bastante la salida, pero dado que mi objetivo es exportar a JSON acabe desinstalandolo. 
+
+## Configuración remota.
+
+Necesitaremos también de un servicio que nos permita abstraer la configuración de diversos parametros de la aplicación, pudiendo modificarlos de forma distribuida.
+
+Utilizaré Dotenv para guardar parejas de claves-valor con los parametros de configuración susceptibles de ser modificados, como el directorio donde guardar los logs, o el nombre del fichero JSON donde se almacenan. En el futuro puede que se requiera de más de estas variables de entorno.
+
+Para la configuración remota, no hay demasiadas alternativas entre las que escoger, así que optado directamente por utilizar Etcd3, como se recomendó en clase de teoría.
+
+En el objetivo 7 se prepara el fichero de configuración para hacer uso de este servicio, pero dado que aún no hemos establecido ningun servidor, la solicitud fallará y pasará a tomar las variables de entorno, y, en última instancia si esto fallara por algún motivo, tomar un valor "hardcoded".

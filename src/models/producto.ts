@@ -55,12 +55,17 @@ export class Producto {
         }
         this._marca = marca;
 
-        if(PVP <= Constantes.CANTIDAD_INVALIDA) {
+        if(!PVP) {
+            throw new Error_producto(` Se intentó crear un producto con ID ${id_producto}, nombre ${nombre}, marca ${marca} sin PVP `);
+        } else if(PVP <= Constantes.CANTIDAD_INVALIDA) {
             throw new Error_producto(` Se intentó crear un producto con ID ${id_producto}, nombre ${nombre}, marca ${marca} y PVP inválido `);
         
         }
         this._PVP = PVP;
 
+        if(!tipo) {
+            throw new Error_producto(` Se intentó crear un producto con ID ${id_producto}, nombre ${nombre}, marca ${marca} y PVP ${PVP} sin tipo `);
+        }
         this._tipo = tipo;
     }
 

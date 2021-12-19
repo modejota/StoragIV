@@ -8,9 +8,10 @@ const client = new Etcd3();
  * Clase para representar los valores para la configuración de la aplicación
  * @public
  */
-export class Configuration {
+class Configuration {
     private _log_directory: any;
     private _log_file: any;
+    private _fastify_port: any;
     
     /**
      * Constructor del objeto de configuración
@@ -33,6 +34,15 @@ export class Configuration {
             this._log_file = process.env.LOG_FILE
         } else {
             this._log_file = "logs.json"
+        }
+
+        (async () => {
+            this._fastify_port = await client.get('FASTIFY_PORT').number().catch(err =>{});
+        })();
+        if(this._fastify_port == null && process.env.FASTIFY_PORT != undefined) {
+            this._fastify_port = process.env.FASTIFY_PORT
+        } else {
+            this._fastify_port = 3030
         }
 
     }
@@ -61,4 +71,14 @@ export class Configuration {
         return this.log_directory + this.log_file
     }
 
+    /**
+     * Método para obtener el puerto sobre el que escucha Fastify
+     * @returns Puerto sobre el que escucha Fastify
+     */
+    public get fastify_port() : number {
+        return this._fastify_port
+    }
+
 }
+
+export const configuration = new Configuration()

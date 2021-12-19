@@ -6,7 +6,7 @@ import { Tipo_producto } from "./models/tipo_producto";
 import { logger } from "./logger";
 import { Constantes } from "./constantes";
 
-export class Handler {
+class Handler {
     private _existencias: Existencias
     private _facturas: Map<number, Factura>
     private _last_err_message: string
@@ -318,5 +318,7 @@ export class Handler {
         return this._facturas.size
     }
 
+
 }
 
+export const handler = new Handler()

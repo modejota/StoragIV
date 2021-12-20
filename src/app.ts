@@ -3,5 +3,4 @@ import router from "./router";
 
 const server = fastify()
 server.register(router)
-
 export default server;

@@ -120,3 +120,36 @@ Utilizaré Dotenv para guardar parejas de claves-valor con los parametros de con
 Para la configuración remota, no hay demasiadas alternativas entre las que escoger, así que optado directamente por utilizar Etcd3, como se recomendó en clase de teoría.
 
 En el objetivo 7 se prepara el fichero de configuración para hacer uso de este servicio, pero dado que aún no hemos establecido ningun servidor, la solicitud fallará y pasará a tomar las variables de entorno, y, en última instancia si esto fallara por algún motivo, tomar un valor "hardcoded".
+
+## API REST
+---
+
+En el marco del objetivo 8 deberemos realizar el diseño de una API REST que permita acceder a los recursos de la aplicación, para lo que necesitaremos un framework que nos apoye en esta tarea.
+
+Los principales criterios que he seguido para la elección del framework son cuatro:
+- Que permita servir el máximo de peticiones por unidad de tiempo posible, ya que este es un apartado fundamental para mantener contentos a los usuarios.
+- Que sea relativamente fácil trabajar con él, para agilizar la tarea de desarrollo, y que cuente con una documentación completa que permita resolver dudas e iniciarse en el uso avanzado de la herramienta.
+- Que tenga buen soporte con Typescript en general, y en especial con las herramientas de test (Jest) y logging (Pino) elegidas en los objetivos anteriores.
+- Que se trate de un software con un mantenimiento activo, que reciba actualizaciones y corección de errores de manera frecuente. 
+
+
+Dada la "prohibición" de usar Express, he buscado otras alternativas a dicho framework, que es el que mínimamente conocía. Tras realizar unas cuantas búsquedas, ver valoraciones de otros desarrolladores, etc, mis opciones se redujeron a cuatro:
+
+- Koa: un framework muy conocido (y que de hecho ya conocía), con buen soporte para Typescript y Jest, y relativamente similar a Express, aunque con un rendimiento similar según varias comparativas. Decidí buscar alguna opción más antes de decantarme por él.
+- Ts.ED: construido sobre Express/Koa, y escrito en Typescript (por lo que aseguran que la compatibilidad es total). Con sistema basado en clases y multitud de decoradores. No me terminaba de convencer el cómo manejar los controladores, siento que se necesita de mucho boilerplate y no tengo control total, por ejemplo, a la hora de validar los datos que vienen de un POST.
+- NestJS: otro framework construido sobre Express y escrito en Typescript. En diversas comparativas se le ponía en un lugar muy alto, al ofrecer muchas opciones y facilidades. No me gustó que para crear el proyecto tuvieras que usar el CLI, ya que tendría que mover y reorganizar multitud de ficheros. Además, me ví abrumado con el montón de clases, opciones, decoradores etc que tenía el proyecto vacío y que necesitaban configuración. Decidí descartarlo por aparentemente complejo.
+- Fastify: este ha sido el elegido, al cumplir con todos los criterios especificados anteriormente. 
+  - Aunque dispone de CLI, no es necesaria para integrarlo en el proyecto (se puede hacer fácilmente "a mano"). 
+  - Tiene buen soporte con Typescript y recibe actualizaciones y correcciones de errores frecuentemente.
+  - La documentación me ha parecido sencilla de entender, completa y bien estructurada. Además, hay muchas dudas resueltas en los issues de Github del proyecto, de hecho, algunas que me han surgido las he podido resolver consultándolos.
+  - Tiene funciones específicas para realizar test desde diversos frameworks (entre los que está Jest) sin necesidad de levantar un servidor.
+  - Utiliza como logger (si se desea) Pino, que ya tengo instalado del objetivo anterior. 
+  - Me ha gustado que se puede tener un gran control sobre las funciones de los controladores y sus parámetros. Pueden definirse de forma muy básica muy rápido (como se han hecho la gran parte durante el objetivo 8), pero si se desea mayor nivel de control no es dificil conseguirlo (he dejado una con validación básica para ilustrarlo, tras la implementación del objetivo 9 todas las funciones seguirán este esquema).
+  - Es bastante facil dividir las rutas y asignarlas a diversos controladores.
+  - Es el framework más rápido de los cuatro según las comparativas consultadas.
+
+En el marco del objetivo 8 se ha realizado el diseño de las rutas (intentando seguir las mejores prácticas y pensando en la futura implementación del objetivo 9) y se ha definido un nuevo fichero de test con el que probar la ruta de bienvenida y una ruta para "acceder al status".
+
+Adicionalmente, y probablemente adelantandome al objetivo 9/10, he añadido el código necesario para levantar el servidor. Esto lo he hecho para probar que realmente funcionaba con la mínima configuración que he tenido que hacer.
+
+Para las pruebas que he realizado, he utilizado Postman, un programa que ya había usado anteriormente y que facilita el testeo de APIs en gran manera, permitiendo definir facilmente rutas, cabeceras, querystring, cuerpos de peticiones POST, etc. Una ventaja sobre otras herramientas como cURL es que cuenta con una interfaz gráfica que facilita mucho la tarea.

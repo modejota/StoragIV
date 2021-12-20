@@ -139,7 +139,7 @@ Dada la "prohibición" de usar Express, he buscado otras alternativas a dicho fr
 - Ts.ED: construido sobre Express/Koa, y escrito en Typescript (por lo que aseguran que la compatibilidad es total). Con sistema basado en clases y multitud de decoradores. No me terminaba de convencer el cómo manejar los controladores, siento que se necesita de mucho boilerplate y no tengo control total, por ejemplo, a la hora de validar los datos que vienen de un POST.
 - NestJS: otro framework construido sobre Express y escrito en Typescript. En diversas comparativas se le ponía en un lugar muy alto, al ofrecer muchas opciones y facilidades. No me gustó que para crear el proyecto tuvieras que usar el CLI, ya que tendría que mover y reorganizar multitud de ficheros. Además, me ví abrumado con el montón de clases, opciones, decoradores etc que tenía el proyecto vacío y que necesitaban configuración. Decidí descartarlo por aparentemente complejo.
 - Fastify: este ha sido el elegido, al cumplir con todos los criterios especificados anteriormente. 
-  - Aunque dispone de CLI, no es necesaria para integrarlo en el proyecto (se puede hacer fácilmente "a mano"). 
+  - Aunque dispone de CLI, no es necesaria para integrarlo en un proyecto existente (se puede hacer fácilmente "a mano"). 
   - Tiene buen soporte con Typescript y recibe actualizaciones y correcciones de errores frecuentemente.
   - La documentación me ha parecido sencilla de entender, completa y bien estructurada. Además, hay muchas dudas resueltas en los issues de Github del proyecto, de hecho, algunas que me han surgido las he podido resolver consultándolos.
   - Tiene funciones específicas para realizar test desde diversos frameworks (entre los que está Jest) sin necesidad de levantar un servidor.

@@ -150,6 +150,6 @@ Dada la "prohibición" de usar Express, he buscado otras alternativas a dicho fr
 
 En el marco del objetivo 8 se ha realizado el diseño de las rutas (intentando seguir las mejores prácticas y pensando en la futura implementación del objetivo 9) y se ha definido un nuevo fichero de test con el que probar la ruta de bienvenida y una ruta para "acceder al status".
 
-Adicionalmente, y probablemente adelantandome al objetivo 9/10, he añadido el código necesario para levantar el servidor. Esto lo he hecho para probar que realmente funcionaba con la mínima configuración que he tenido que hacer.
+Adicionalmente, y probablemente adelantandome al objetivo 9/10, he añadido el código necesario para levantar el servidor. Esto lo he hecho para probar que realmente funcionaba con la mínima configuración que he tenido que hacer. Adicionalmente, se ha añadido una nueva variable de entorno con la que especificar el puerto en que escucha el servidor.
 
 Para las pruebas que he realizado, he utilizado Postman, un programa que ya había usado anteriormente y que facilita el testeo de APIs en gran manera, permitiendo definir facilmente rutas, cabeceras, querystring, cuerpos de peticiones POST, etc. Una ventaja sobre otras herramientas como cURL es que cuenta con una interfaz gráfica que facilita mucho la tarea.

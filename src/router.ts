@@ -1,11 +1,9 @@
 import { FastifyInstance } from "fastify";
-import productController from "./controller/productController";
 import almacenController from "./controller/almacenController";
 import facturaController from "./controller/facturaController";
 
 export default async function router(fastify: FastifyInstance) {
 
-    fastify.register(productController, { prefix: '/product' })
     fastify.register(almacenController, { prefix: '/storage' })
     fastify.register(facturaController, { prefix: '/bills' })
 

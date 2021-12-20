@@ -1,12 +1,37 @@
 import { FastifyInstance } from "fastify";
+import { Constantes as C} from '../constantes';
+
+
+const ProductData = {
+    type: 'object',
+    required: ['id','nombre','marca','tipo','PVP'],
+    properties: {
+        id: { type: 'number', minimum: C.ID_INVALIDO+1},
+        nombre: { type: 'string', minLength: C.LON_NOMBRE_MIN, maxLength: C.LON_NOMBRE_MAX},
+        marca: { type: 'string', minLength: C.LON_MARCA_MIN, maxLength: C.LON_NOMBRE_MAX},
+        tipo: { type: 'number', minimum: C.ID_INVALIDO},
+        PVP: {type: 'number', minimum: C.ID_INVALIDO},
+        cantidad: {type: 'number', minimum: C.ID_INVALIDO}
+    },
+}
 
 export default async function almacenController(fastify:FastifyInstance) {
     
-    fastify.get('/',async function (request, reply) {
-        
+    fastify.route({
+        method: 'POST',
+        url: '/',
+        schema: {
+            body: ProductData,
+            response: {
+                201: ProductData
+            }
+        },
+        handler: function (request,reply) {
+            // TO DO
+        }
     })
 
-    fastify.post('/',async (request, reply) => {
+    fastify.get('/',async function (request, reply) {
         
     })
 

@@ -4,7 +4,8 @@
     "description": "Sistema para gestión de inventario y ventas de un negocio",
     "scripts": {
         "check": "tsc --noEmit",
-        "build": "tsc --build",
+        "build": "tsc -p tsconfig.json",
+        "start": "node dist/src/index.js",
         "clean": "tsc --build --clean",
         "postclean": "rm -rf dist && rm -rf docs/coverage",
         "test": "jest --detectOpenHandles",
@@ -36,6 +37,7 @@
     "dependencies": {
         "dotenv": "^10.0.0",
         "etcd3": "^1.1.0",
+        "fastify": "^3.25.0",
         "pino": "^7.5.1"
     }
 }

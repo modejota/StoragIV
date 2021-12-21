@@ -6,7 +6,7 @@ import { Tipo_producto } from "./models/tipo_producto";
 import { logger } from "./logger";
 import { Constantes } from "./constantes";
 
-export class Handler {
+class Handler {
     private _existencias: Existencias
     private _facturas: Map<number, Factura>
     private _last_err_message: string
@@ -318,5 +318,23 @@ export class Handler {
         return this._facturas.size
     }
 
+    /**
+     * Método para obtener todas las facturas disponibles en el sistema
+     * @returns Facturas (y correspondientes IDs) presentes en el sistema
+     */
+    public get_all_facturas(): Map<number, Factura> {
+        return this._facturas
+    }
+
+    /**
+     * Método para obtener todos los productos del almacen
+     * @returns Productos presentes en el almacen
+     */
+    public get_all_productos_almacen(): Existencias {
+        return this._existencias
+    }
+
+
 }
 
+export const handler = new Handler()

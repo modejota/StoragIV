@@ -11,3 +11,4 @@ automatizar:
 test: tests/test.test.ts
 CI: .circleci/config.yml
 configuracion: src/configuration.ts
+framework: fastify

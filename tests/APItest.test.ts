@@ -1,5 +1,4 @@
 import server from "../src/app";
-import { Existencias } from "../src/models/existencias";
 
 let aProduct = { id: 1, nombre: "Nombre test", marca: "Marca test", tipo:2, PVP:13.90, cantidad:7 }
 let modifyingProductData = { nombre: "Este es otro nombre", marca: "Otra marca", tipo: 3, PVP: 12.90, cantidad: 9 }

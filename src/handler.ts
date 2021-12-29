@@ -4,7 +4,7 @@ import { Factura } from "./models/factura";
 import { Producto } from "./models/producto";
 import { Tipo_producto } from "./models/tipo_producto";
 import { logger } from "./logger";
-import { Constantes } from "./constantes";
+import { Constantes } from "./constantes/constantes";
 
 class Handler {
     private _existencias: Existencias
@@ -330,8 +330,8 @@ class Handler {
      * Método para obtener todos los productos del almacen
      * @returns Productos presentes en el almacen
      */
-    public get_all_productos_almacen(): Existencias {
-        return this._existencias
+    public get_all_productos_almacen() {
+        return this._existencias.inventario
     }
 
 

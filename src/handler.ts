@@ -96,11 +96,29 @@ class Handler {
     }
 
     /**
+     * Método para actualizar un determinado producto presente en el almacén
+     * @param producto Producto con los valores a actualizar
+     * @param cantidad Nueva cantidad del producto
+     */
+         public actualizar_producto_almacen(producto: Producto, cantidad: number) {
+            let ID = producto.id_producto
+            try {
+                this._existencias.actualizar_producto(producto,cantidad)
+                logger.info(`Producto con ID ${ID} actualizado correctamente.`)
+            } catch (exception) {
+                logger.error(exception)
+                if (exception instanceof Error_existencias)
+                    this._last_err_message = exception.message
+                throw new Error_handler(this._last_err_message)
+            }
+        }
+
+    /**
      * Método para actualizar la cantidad de la que se dispone de un determinado producto en el almacén
      * @param ID Identificador único del producto
      * @param cantidad Valor en el que debe variarse la cantidad del producto
      */
-    public actualizar_cantidad_producto_almacen(ID: number, cantidad: number) {
+     public actualizar_cantidad_producto_almacen(ID: number, cantidad: number) {
         try {
             this._existencias.actualizar_cantidad_producto(ID,cantidad)
             logger.info(`Cantidad del producto con ID ${ID} actualizado correctamente.`)

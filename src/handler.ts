@@ -253,7 +253,7 @@ class Handler {
     }
 
     /**
-     * Método para actualizar la cantidad de un producto en una factura
+     * Método para actualizar un producto en una factura
      * @param ID_factura Identificador único de la factura
      * @param producto Producto con los datos a ser actualizados
      * @param new_c Nueva cantidad del producto 

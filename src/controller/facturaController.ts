@@ -2,6 +2,7 @@ import { FastifyInstance } from "fastify";
 import { handler } from "../handler";
 import { ConstantesValidacion as CV } from "../constantes/constantesValidacion";
 import { parseFactura, parseFacturas } from "../parsers";
+import { Tipo_producto } from "../models/tipo_producto";
 
 export default async function facturaController(fastify:FastifyInstance) {
     
@@ -26,7 +27,9 @@ export default async function facturaController(fastify:FastifyInstance) {
                 handler.crear_factura(data.id)
                 reply.code(201).send({result: `Bill with ID ${data.id} created successfully.`})
             } catch {
-                reply.code(500).send({error: `Bill with ID ${data.id} already existing. Can't create.`})
+                handler.eliminar_factura(data.id)
+                handler.crear_factura(data.id)
+                reply.code(200).send({error: `Bill with ID ${data.id} reseted successfully.`})
             }
         }
     })
@@ -75,12 +78,16 @@ export default async function facturaController(fastify:FastifyInstance) {
         handler: function (request, reply) {
             let id = JSON.parse(JSON.stringify(request.params)).id
             let data = JSON.parse(JSON.stringify(request.body))
+            if(data.tipo > Tipo_producto.UNDEFINED)
+                data.tipo = Tipo_producto.UNDEFINED
             try {
                 let product = handler.crear_producto(data.id, data.nombre, data.marca, data.tipo, data.PVP)
                 handler.aniadir_producto_factura(id,product,data.cantidad)
                 reply.status(201).send({result: `Product added successfully to bill with ID ${id}.`})
             } catch {
-                reply.status(500).send({error: `Product with ID ${data.id} already existing in bill with ID ${id}. Can't create.`})
+                let product = handler.crear_producto(data.id, data.nombre, data.marca, data.tipo, data.PVP)
+                handler.actualizar_producto_factura(id,product,data.cantidad)
+                reply.status(200).send({result: `Product with ID ${id} successfully updated.`})
             }
         }
     })
@@ -129,6 +136,8 @@ export default async function facturaController(fastify:FastifyInstance) {
         handler: function (request, reply) {
             let params = JSON.parse(JSON.stringify(request.params))
             let data = JSON.parse(JSON.stringify(request.body))
+            if(data.tipo > Tipo_producto.UNDEFINED)
+                data.tipo = Tipo_producto.UNDEFINED
             try {
                 let new_c = handler.crear_producto(params.idp,data.nombre,data.marca,data.tipo,data.PVP)
                 handler.actualizar_producto_factura(params.id,new_c,data.cantidad)

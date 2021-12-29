@@ -1,4 +1,4 @@
-import { Constantes } from "../constantes";
+import { Constantes } from "../constantes/constantes";
 import { Error_existencias } from "../errores";
 import { Producto } from "./producto";
 
@@ -98,6 +98,14 @@ export class Existencias {
      */
     public get_num_items() {
         return this._inventario.size
+    }
+
+    /**
+     * Método para obtener todos los productos del almacen
+     * @returns Método para obtener todos los productos del almacen
+     */
+    public get inventario() {
+        return this._inventario
     }
 
 }

@@ -130,9 +130,8 @@ export default async function facturaController(fastify:FastifyInstance) {
             let params = JSON.parse(JSON.stringify(request.params))
             let data = JSON.parse(JSON.stringify(request.body))
             try {
-                handler.eliminar_producto_factura(params.id,params.idp)
-                let product = handler.crear_producto(params.idp, data.nombre, data.marca, data.tipo, data.PVP)
-                handler.aniadir_producto_factura(params.id,product,data.cantidad)
+                let new_c = handler.crear_producto(params.idp,data.nombre,data.marca,data.tipo,data.PVP)
+                handler.actualizar_producto_factura(params.id,new_c,data.cantidad)
                 reply.code(200).send({result: `Product with ID ${params.idp} in bill with ID ${params.id} updated successfully.`})
             } catch {
                 reply.code(404).send({error: "Product and/or bill not found."})

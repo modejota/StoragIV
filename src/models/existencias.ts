@@ -70,23 +70,21 @@ export class Existencias {
     /**
      * Método para actualizar un producto presente en el almacen
      * @param ID Producto con los datos a modificarse
-     * @param cantidad Nuevo valor de la cantidad en el producto
+     * @param new_c Nuevo valor de la cantidad en el producto
      */
-     public actualizar_producto(product: Producto, cantidad: number) {
+     public actualizar_producto(product: Producto, new_c: number) {
         let ID = product.id_producto
         if (ID <= Constantes.ID_INVALIDO) 
             throw new Error_existencias( ` Se intentó actualizar la cantidad de un producto con ID ${ID} inválido `)
         
-        if (this._inventario.has(ID) && cantidad != Constantes.CANTIDAD_INVALIDA) {
-            let pair = this._inventario.get(ID)
-            if (pair) { 
-                if (cantidad < Constantes.CANTIDAD_INVALIDA) {
-                    throw new Error_existencias( `Se intentó actualizar la cantidad del producto con ID ${ID} de manera que obtenemos cantidad negativa `)
-                }
-
-                this._inventario.set(ID,[product,cantidad])
-            }
-        } 
+        if (this._inventario.has(ID)) {
+            let producto = this._inventario.get(ID)?.[0]
+            if (new_c >= Constantes.CANTIDAD_INVALIDA)
+            this._inventario.set(ID, [product, new_c])
+        else    
+            this._inventario.set(ID, [product,Constantes.CANTIDAD_INVALIDA])
+        }
+         
         else 
             throw new Error_existencias( `Se intentó actualizar la cantidad del producto con ID ${ID} no presente en el almacén `)
     
@@ -95,22 +93,19 @@ export class Existencias {
     /**
      * Método para actualizar la cantidad de la que se dispone de un determinado producto en el almacén
      * @param ID Identificador único del producto
-     * @param cantidad Valor en el que debe variarse la cantidad del producto
+     * @param new_c Nueva cantidad del producto con el identificador ID
      */
-    public actualizar_cantidad_producto(ID: number, cantidad: number) {
+    public actualizar_cantidad_producto(ID: number, new_c: number) {
         if (ID <= Constantes.ID_INVALIDO) 
             throw new Error_existencias( ` Se intentó actualizar la cantidad de un producto con ID ${ID} inválido `)
         
         if (this._inventario.has(ID)) {
-            let pair = this._inventario.get(ID)
-            if (pair) { 
-                let new_cantidad = pair[1] + cantidad
-                if (new_cantidad < Constantes.CANTIDAD_INVALIDA) {
-                    new_cantidad = 0
-                }
-                pair[1] = new_cantidad
-                this._inventario.set(ID,pair)
-            }
+            let producto = this._inventario.get(ID)?.[0]
+            if (new_c >= Constantes.CANTIDAD_INVALIDA)
+                this._inventario.set(ID, [producto as Producto, new_c])
+            else
+                this._inventario.set(ID, [producto as Producto, Constantes.CANTIDAD_INVALIDA])
+
         } 
         else 
             throw new Error_existencias( `Se intentó actualizar la cantidad del producto con ID ${ID} no presente en el almacén `)

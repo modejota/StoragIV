@@ -1,6 +1,7 @@
 import { Producto } from "./producto";
 import { Constantes } from "../constantes/constantes";
 import { Error_factura } from "../errores";
+import { P } from "pino";
 
 /**
  * Representa una factura del negocio
@@ -82,13 +83,13 @@ export class Factura {
         if (ID <= Constantes.ID_INVALIDO)
             throw new Error_factura(` Se intentó acceder un producto con ID ${ID} inválido `)
         
-        if (new_c <= Constantes.CANTIDAD_INVALIDA)
-            throw new Error_factura(` Se  intentó asignar la cantidad ${new_c} inválida al producto con ID ${ID} `)
-
         if (this._productos.has(ID)) {
             let producto = this._productos.get(ID)?.[0]
-            if(producto)
-                this._productos.set(ID,[producto,new_c])
+            if (new_c >= Constantes.CANTIDAD_INVALIDA)
+                this._productos.set(ID, [producto as Producto, new_c])
+            else
+                this._productos.set(ID, [producto as Producto, Constantes.CANTIDAD_INVALIDA])
+
         } else 
             throw new Error_factura( `Se intentó acceder a un producto con ID ${ID} no presente en la factura `)
         
@@ -104,13 +105,11 @@ export class Factura {
         if (ID <= Constantes.ID_INVALIDO)
             throw new Error_factura(` Se intentó acceder un producto con ID ${ID} inválido `)
         
-        if (new_c <= Constantes.CANTIDAD_INVALIDA)
-            throw new Error_factura(` Se  intentó asignar la cantidad ${new_c} inválida al producto con ID ${ID} `)
-
         if (this._productos.has(ID)) {
-            let producto = this._productos.get(ID)?.[0]
-            if(producto)
-                this._productos.set(ID,[product,new_c])
+            if (new_c >= Constantes.CANTIDAD_INVALIDA)
+                this._productos.set(ID, [product, new_c])
+            else    
+                this._productos.set(ID, [product,Constantes.CANTIDAD_INVALIDA])
         } else 
             throw new Error_factura( `Se intentó acceder a un producto con ID ${ID} no presente en la factura `)
         

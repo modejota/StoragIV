@@ -1,4 +1,4 @@
-import { Error_existencias, Error_factura, Error_handler, Error_producto } from  "../src/errores"
+import { Error_handler } from  "../src/errores"
 import { Producto } from "../src/models/producto";
 import { Tipo_producto } from "../src/models/tipo_producto";
 import { handler } from "../src/handler";
@@ -279,12 +279,4 @@ describe('Tests de toda la aplicación', () => {
 
     })
 
-    
 })
-
-
-
-
-
-
-

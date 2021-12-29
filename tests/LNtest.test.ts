@@ -267,10 +267,8 @@ describe('Tests de toda la aplicación', () => {
         handler.actualizar_cantidad_producto_almacen(1,-2)
         expect(handler.obtener_producto_almacen(1)?.[1]).toBe(2) 
 
-        const negativeQuantity = () => {
-            handler.actualizar_cantidad_producto_almacen(1,-400)
-        };
-        expect(negativeQuantity).toThrow(Error_handler); 
+        handler.actualizar_cantidad_producto_almacen(1,-400)
+        expect(handler.obtener_producto_almacen(1)?.[1]).toBe(0) 
 
         const noExistingID = () => {
             handler.actualizar_cantidad_producto_almacen(121,4)

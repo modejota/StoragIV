@@ -255,6 +255,31 @@ class Handler {
     /**
      * Método para actualizar la cantidad de un producto en una factura
      * @param ID_factura Identificador único de la factura
+     * @param producto Producto con los datos a ser actualizados
+     * @param new_c Nueva cantidad del producto 
+     */
+    public actualizar_producto_factura(ID_factura: number, producto:Producto,new_c:number) {
+        let ID_producto = producto.id_producto
+        if (!this._facturas.has(ID_factura)) {
+            this._last_err_message = `Se intentó eliminar un producto de una factura con ID ${ID_factura} no existente`
+            logger.error(this._last_err_message)
+            throw new Error_handler(this._last_err_message)
+        } else {
+            try {
+                this._facturas.get(ID_factura)?.actualizar_producto(producto,new_c)
+                logger.info(`Cantidad del producto con ID ${ID_producto} de la factura ${ID_factura} actualizado con éxito`)
+            } catch (exception) {
+                logger.error(exception)
+                if (exception instanceof Error_factura)
+                    this._last_err_message = exception.message
+                throw new Error_handler(this._last_err_message) 
+            }
+        }
+    }
+
+    /**
+     * Método para actualizar la cantidad de un producto en una factura
+     * @param ID_factura Identificador único de la factura
      * @param ID_producto Identificador único del producto
      * @param new_c Nueva cantidad del producto con identificador ID
      */

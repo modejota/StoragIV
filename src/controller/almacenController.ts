@@ -22,7 +22,7 @@ export default async function almacenController(fastify:FastifyInstance) {
             } catch {
                 let product = handler.crear_producto(data.id, data.nombre, data.marca, data.tipo, data.PVP)
                 handler.actualizar_producto_almacen(product,data.cantidad)
-                reply.status(200).send({error: `Product with ID ${data.id} updated successfully.`})
+                reply.status(200).send({result: `Product with ID ${data.id} updated successfully.`})
             }
         }
     })

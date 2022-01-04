@@ -377,7 +377,6 @@ class Handler {
         return this._existencias.inventario
     }
 
-
 }
 
 export const handler = new Handler()

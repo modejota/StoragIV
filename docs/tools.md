@@ -153,3 +153,95 @@ En el marco del objetivo 8 se ha realizado el diseño de las rutas (intentando s
 Adicionalmente, y probablemente adelantandome al objetivo 9/10, he añadido el código necesario para levantar el servidor. Esto lo he hecho para probar que realmente funcionaba con la mínima configuración que he tenido que hacer. Adicionalmente, se ha añadido una nueva variable de entorno con la que especificar el puerto en que escucha el servidor.
 
 Para las pruebas que he realizado, he utilizado Postman, un programa que ya había usado anteriormente y que facilita el testeo de APIs en gran manera, permitiendo definir facilmente rutas, cabeceras, querystring, cuerpos de peticiones POST, etc. Una ventaja sobre otras herramientas como cURL es que cuenta con una interfaz gráfica que facilita mucho la tarea.
+
+### Rutas de la API
+
+En el marco del objetivo 9, procedo a realizar la implementación de las rutas diseñadas en el objetivo 8. 
+
+Las rutas se organizan en torno a dos recursos, el almacén y las facturas. Las funciones asociadas a cada recurso se encuentran en ficheros separados, y se registran en el `router` de la API. Fastify permite realizar esta gestión fácilmente, de manera que, al registrarlas, podamos anteponerle un prefijo a las rutas, no necesitando repetir innecesariamente código y facilitando posibles modificaciones futuras.
+
+Debe mencionarse que se han tenido que desarrollar parsers para poder devolver en formato JSON las facturas almacenadas en el sistema. Esto es porque el método `stringify` de JSON permite convertir un map a partir de las entradas (obtenidas con  la función `Object.fromEntries(...)`), pero no lo hace de manera recursiva, es decir, no convierte maps que haya dentro de otros maps. Por lo tanto, al convertir nuestros datos había ocasiones en las que obteníamos maps vacíos. Los métodos implementados solucionan esta problemática.
+
+Fastify permite simplificar bastante la validación de los datos que deben recibir las distintas funciones de la API. Pasando objetos a los distintos campos del `schema` de la función se pueden especificar restricciones. Por ejemplo:
+- Para una petición que haga uso de los verbos POST, PUT o PATCH, se pueden especificar los datos eserados en el cuerpo de la petición mediante el campo `body`. Puede especificarse, para cada valor, su tipo, si es obligatorio u opcional y valores mínimos y máximos, longitudes mínimas y máximas en caso de ser string, entre otras cosas.
+- Para una petición que haga uso de los verbos GET o DELETE, se pueden especificar partes de la URI "parametrizables", permitiendo comprobar, por ejemplo, si se tiene un determinado valor mínimo. Esto se hace con el campo `params`.
+
+En caso de que no se cumpla alguna de las restricciones especificadas, como que un valor sea menor de lo esperado, o falte algún dato obligatorio en el cuerpo de una petición, Fastify se encarga de responder automáticamente con código HTTP 400 y el mensaje de error correspondiente. Los siguientes son algunos ejemplos:
+- {
+    "statusCode": 400 ,
+    "error": "Bad Request",
+    "message": "body.id should be >= 1"
+}
+- {
+    "statusCode": 400,
+    "error": "Bad Request",
+    "message": "body should have required property 'nombre'"
+}
+
+
+Se listarán a continuación las rutas, agrupadas por el verbo HTTP utilizado.
+
+#### Verbo GET
+---
+
+| URI		| Descripción						|
+| ---		| ---							|
+| / | Mostrar mensaje de bienvenida a la API
+| /status | Comprobar que la aplicación está en línea |
+| /product	| Obtención de todos los productos del almacén		|
+| /product/:id	| Obtención del producto con ID único id del almacén	|
+| /bills	| Obtención de todas las facturas disponibles en el sistema			|
+| /bills/:id	| Obtención de la factura con ID único id del sistema	|
+| /bills/:id/product/:idp	| Obtención del producto con ID único idp de la factura con ID único id	|
+| /bills/:id/total	|	Obtención del importe total de la factura con ID único id
+
+#### Verbo POST
+---
+
+| URI		| Descripción						|
+| ---		| ---							|
+| /product	| Creación/actualización del producto cuyo ID único sea el enviado en el cuerpo de la petición		|
+| /bills	| Creación/reset de la factura cuyo ID único sea el enviado en el cuerpo de la petición			|
+| /bills/:id	| Creación/actualización del producto cuyo ID único sea el enviado en el cuerpo de la petición, en la factura con ID único id |
+
+Para crear facturas, y añadir productos a facturas, es el usuario quien debe aportar los identificadores correspondientes en el cuerpo de la petición, junto al resto de datos requeridos.
+
+
+#### Verbo PUT
+---
+
+| URI		| Descripción						|
+| ---		| ---							|
+| /product/:id	| Modificación de los datos del producto con ID único id del almacén	|
+| /bills/:id/product/:idp	| Modificación de los datos del producto con ID único idp en la factura con ID único id			|
+
+Dado que los identificadores se pasan como parte de la URI, no es necesarios adjuntarlos en el cuerpo de la petición. 
+
+El verbo PUT se utiliza, principalmente, para realizar modificaciones de un recurso ya existente en el servidor. Sin embargo, puede ser utilizado para crear el recurso, de manera similar a como se hace con POST, pero esto no es obligatorio.  
+
+La ruta correspondiente al producto sí que admite la creación del recurso en caso de no existir, mientras que la correspondiente a la factura no, pues podría requerir la creación de una nueva factura, lo cual no es lo deseado.
+
+#### Verbo DELETE
+---
+
+| URI		| Descripción						|
+| ---		| ---							|
+| /product/:id	| Borrado del producto con ID único id del almacén	|		|
+| /bills/:id	| Borrado de la factura con ID único id del sistema	|
+| /bills/:id/product/:idp	| Borrado del producto con ID único idp de la factura con ID único id	|
+
+#### Verbo PATCH
+---
+
+| URI		| Descripción						|
+| ---		| ---							|
+| /product/:id	| Actualización de la cantidad del producto con ID único id del almacén	|		|
+| /bills/:id/product/:idp	| Actualización de la cantidad del producto con ID único idp de la factura con ID único id	|
+
+Estas rutas han sido añadidas mientras se desarrollaba el objetivo 9. 
+
+Por lo que he podido leer, la principal diferencia entre PUT y PATCH es la siguiente:
+- PUT se utiliza, principalmente, para modificar un recurso completo, o de no existir, crearlo.
+- PATCH se utiliza para realizar una modificación parcial de un recurso que sabemos que existe en el servidor, sólo buscamos alterar una única propiedad o un conjunto reducido de las mismas.
+
+Dado que, una vez añadido un producto al almacen o a una factura lo más normal es que solo deseemos modificar la cantidad, se proveen de estas rutas para tal fin. La nueva cantidad será pasada en el cuerpo de la petición.

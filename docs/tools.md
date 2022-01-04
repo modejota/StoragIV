@@ -163,8 +163,8 @@ Las rutas se organizan en torno a dos recursos, el almacén y las facturas. Las 
 Debe mencionarse que se han tenido que desarrollar parsers para poder devolver en formato JSON las facturas almacenadas en el sistema. Esto es porque el método `stringify` de JSON permite convertir un map a partir de las entradas (obtenidas con  la función `Object.fromEntries(...)`), pero no lo hace de manera recursiva, es decir, no convierte maps que haya dentro de otros maps. Por lo tanto, al convertir nuestros datos había ocasiones en las que obteníamos maps vacíos. Los métodos implementados solucionan esta problemática.
 
 Fastify permite simplificar bastante la validación de los datos que deben recibir las distintas funciones de la API. Pasando objetos a los distintos campos del `schema` de la función se pueden especificar restricciones. Por ejemplo:
-- Para una petición que haga uso de los verbos POST, PUT o PATCH, se pueden especificar los datos eserados en el cuerpo de la petición mediante el campo `body`. Puede especificarse, para cada valor, su tipo, si es obligatorio u opcional y valores mínimos y máximos, longitudes mínimas y máximas en caso de ser string, entre otras cosas.
-- Para una petición que haga uso de los verbos GET o DELETE, se pueden especificar partes de la URI "parametrizables", permitiendo comprobar, por ejemplo, si se tiene un determinado valor mínimo. Esto se hace con el campo `params`.
+- Para una petición que haga uso de los verbos POST, PUT o PATCH, se pueden especificar los datos eserados en el cuerpo de la petición mediante el campo `body` del `schema`. Puede especificarse, para cada valor, su tipo, si es obligatorio u opcional y valores mínimos y máximos, longitudes mínimas y máximas en caso de ser string, entre otras cosas.
+- Para una petición que haga uso de los verbos GET o DELETE, se pueden especificar partes de la URI "parametrizables", permitiendo comprobar, por ejemplo, si se tiene un determinado valor mínimo. Esto se hace con el campo `params` del `schema`.
 
 En caso de que no se cumpla alguna de las restricciones especificadas, como que un valor sea menor de lo esperado, o falte algún dato obligatorio en el cuerpo de una petición, Fastify se encarga de responder automáticamente con código HTTP 400 y el mensaje de error correspondiente. Los siguientes son algunos ejemplos:
 - {
@@ -178,6 +178,9 @@ En caso de que no se cumpla alguna de las restricciones especificadas, como que 
     "message": "body should have required property 'nombre'"
 }
 
+En el marco del objetivo 9 se crea un nuevo fichero de tests, relativo a los test de integración de la API. Dichos tests se centran tanto en asegurar que se dispone de las rutas que cabría esperar, como que estas proporcionan la respuesta esperada ante determinados datos de entrada.
+
+Dado que aún no tendríamos porqué tener levantado el microservicio, se hace uso de la función `inject` de Fastify para realizar los test de integración. Esta función permite realizar "peticiones HTTP fake" a la aplicación, de manera que, sin tener el servidor levantado, Fastify redirige la petición HTTP a la función correspondiente y nos devuelve el resultado, tal y como si el servidor sí que estuviera levantado.
 
 Se listarán a continuación las rutas, agrupadas por el verbo HTTP utilizado.
 

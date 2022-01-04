@@ -41,7 +41,7 @@ describe('Tests de rutas relativas al almacen', () => {
             method: 'POST',
             payload: aProduct,
         });
-        expect(res.json()).toEqual({error: `Product with ID 1 already existing. Can't create.`})
+        expect(res.json()).toEqual({result: `Product with ID ${anID.id} updated successfully.`})
     })
     
     it('GET a product', async () => {
@@ -83,7 +83,7 @@ describe('Tests de rutas relativas al almacen', () => {
             payload: modifyingProductData
         });
         expect(res.statusCode).toBe(200)
-        expect(res.json()).toEqual({result: `Product with ID 1 updated successfully.`})
+        expect(res.json()).toEqual({result: `Product with ID ${aProduct.id} updated successfully.`})
     })
 
     it('PUT a non existing product', async () => {
@@ -102,7 +102,7 @@ describe('Tests de rutas relativas al almacen', () => {
             payload: {cantidad: 99}
         });
         expect(res.statusCode).toBe(200)
-        expect(res.json()).toEqual({result: `Quantity of product with ID 1 updated successfully.`})
+        expect(res.json()).toEqual({result: `Quantity of product with ID ${aProduct.id} updated successfully.`})
     })
 
     it('PATCH the quantity of a non existing product', async() => {
@@ -120,7 +120,7 @@ describe('Tests de rutas relativas al almacen', () => {
             method: "DELETE",
         });
         expect(res.statusCode).toBe(200)
-        expect(res.json()).toEqual({result: `Product with ID 1 deleted successfully.`})
+        expect(res.json()).toEqual({result: `Product with ID ${aProduct.id} deleted successfully.`})
     })
 
     it('DELETE a non existing product', async () => {
@@ -151,7 +151,7 @@ describe('Tests de rutas relativas a las facturas', () => {
             method: 'POST',
             payload: anID,
         });
-        expect(res.json()).toEqual({error: `Bill with ID ${anID.id} already existing. Can't create.`})
+        expect(res.json()).toEqual({result: `Bill with ID ${anID.id} created successfully.`})
     })    
     
     it('POST a product to a bill', async () => {
@@ -169,7 +169,7 @@ describe('Tests de rutas relativas a las facturas', () => {
             method: "POST",
             payload: aProduct
         });
-        expect(res.json()).toEqual({error: `Product with ID ${aProduct.id} already existing in bill with ID ${anID.id}. Can't create.`})
+        expect(res.json()).toEqual({result: `Product with ID ${aProduct.id} successfully updated.`})
     })
 
     it('GET all bills', async() => {

@@ -2,6 +2,7 @@ import { FastifyInstance } from "fastify";
 import { handler } from "../handler";
 import { ConstantesValidacion as CV } from "../constantes/constantesValidacion";
 import { Tipo_producto } from "../models/tipo_producto";
+import { logger } from "../logger";
 
 export default async function almacenController(fastify:FastifyInstance) {
     
@@ -49,6 +50,7 @@ export default async function almacenController(fastify:FastifyInstance) {
                 reply.code(200).send(product)
             } catch {
                 reply.status(404).send({error: `Product with ID ${data.id} not found.`})
+                logger.error(`HTTP404. Product with ID ${data.id} not found.`)
             }
         }
     })
@@ -66,6 +68,7 @@ export default async function almacenController(fastify:FastifyInstance) {
                 reply.code(200).send({result: `Product with ID ${data.id} deleted successfully.`})
             } catch {
                 reply.status(404).send({error: `Product with ID ${data.id} not found.`})
+                logger.error(`HTTP404. Product with ID ${data.id} not found.`)
             }
         }
     })
@@ -87,6 +90,8 @@ export default async function almacenController(fastify:FastifyInstance) {
                 reply.code(200).send({result: `Product with ID ${ID} updated successfully.`})
             } catch {
                 reply.code(404).send({error: `Product with ID ${ID} not found.`})
+                logger.error(`HTTP404. Product with ID ${ID} not found.`)
+
             }
         }
     })
@@ -106,6 +111,7 @@ export default async function almacenController(fastify:FastifyInstance) {
                 reply.code(200).send({result: `Quantity of product with ID ${ID} updated successfully.`})
             } catch {
                 reply.code(404).send({error: `Product with ID ${ID} not found.`})
+                logger.error(`Error 404. Product with ID ${ID} not found.`)
             }
         }
     })

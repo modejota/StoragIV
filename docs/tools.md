@@ -178,6 +178,8 @@ En caso de que no se cumpla alguna de las restricciones especificadas, como que 
     "message": "body should have required property 'nombre'"
 }
 
+Se ha añadido también el sistema de logging en la API, de manera que se registre cuando se producen creaciones, modificaciones o borrados de los recursos (por el interés que tiene mantener un seguimiento del estado de estoss), así como de los errores HTTP404 que tengan lugar. 
+
 En el marco del objetivo 9 se crea un nuevo fichero de tests, relativo a los test de integración de la API. Dichos tests se centran tanto en asegurar que se dispone de las rutas que cabría esperar, como que estas proporcionan la respuesta esperada ante determinados datos de entrada.
 
 Dado que aún no tendríamos porqué tener levantado el microservicio, se hace uso de la función `inject` de Fastify para realizar los test de integración. Esta función permite realizar "peticiones HTTP fake" a la aplicación, de manera que, sin tener el servidor levantado, Fastify redirige la petición HTTP a la función correspondiente y nos devuelve el resultado, tal y como si el servidor sí que estuviera levantado.

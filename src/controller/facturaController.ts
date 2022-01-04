@@ -25,11 +25,11 @@ export default async function facturaController(fastify:FastifyInstance) {
             let data = JSON.parse(JSON.stringify(request.body))
             try {
                 handler.crear_factura(data.id)
-                reply.code(201).send({result: `Bill with ID ${data.id} created successfully.`})
             } catch {
                 handler.eliminar_factura(data.id)
                 handler.crear_factura(data.id)
-                reply.code(200).send({error: `Bill with ID ${data.id} reseted successfully.`})
+            } finally {
+                reply.code(201).send({result: `Bill with ID ${data.id} created successfully.`})
             }
         }
     })

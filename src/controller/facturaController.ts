@@ -188,7 +188,6 @@ export default async function facturaController(fastify:FastifyInstance) {
             } catch {
                 reply.code(404).send({error: "Product and/or bill not found"})
                 logger.error(`HTPT404. Product and/or bill not found.`)
-
             }
         }
     })

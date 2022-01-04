@@ -92,7 +92,8 @@ describe('Tests de rutas relativas al almacen', () => {
             method: "PUT",
             payload: modifyingProductData
         });
-        expect(res.statusCode).toBe(404)
+        expect(res.statusCode).toBe(201)
+        expect(res.json()).toEqual({error: `Product with ID 100 created successfully.`})
     })
 
     it('PATCH the quantity of a product', async() => {
@@ -107,7 +108,7 @@ describe('Tests de rutas relativas al almacen', () => {
 
     it('PATCH the quantity of a non existing product', async() => {
         const res = await server.inject({
-            url: "/products/100",
+            url: "/products/1000",
             method: "PATCH",
             payload: {cantidad: 99}
         });
@@ -125,7 +126,7 @@ describe('Tests de rutas relativas al almacen', () => {
 
     it('DELETE a non existing product', async () => {
         const res = await server.inject({
-            url: "/products/100",
+            url: "/products/1000",
             method: "DELETE",
         });
         expect(res.statusCode).toBe(404)

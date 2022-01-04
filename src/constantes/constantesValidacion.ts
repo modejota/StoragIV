@@ -75,12 +75,12 @@ export abstract class ConstantesValidacion {
     /**
      * Comprobar que recibimos obligatoriamente una cantidad de un porducto
      */
-         static readonly QuantityOfAProductData = {
-            type: 'object',
-            required: ['cantidad'],
-            properties: {
-                cantidad: { type: 'number', minimum: C.ID_INVALIDO+1 }
-            }
+    static readonly QuantityOfAProductData = {
+        type: 'object',
+        required: ['cantidad'],
+        properties: {
+            cantidad: { type: 'number', minimum: C.ID_INVALIDO+1 }
         }
+    }
 
 }

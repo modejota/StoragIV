@@ -110,7 +110,7 @@ export default async function almacenController(fastify:FastifyInstance) {
                 reply.code(200).send({result: `Quantity of product with ID ${ID} updated successfully.`})
             } catch {
                 reply.code(404).send({error: `Product with ID ${ID} not found.`})
-                logger.error(`Error 404. Product with ID ${ID} not found.`)
+                logger.error(`HTTP404. Product with ID ${ID} not found.`)
             }
         }
     })

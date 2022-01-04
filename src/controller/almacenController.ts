@@ -85,13 +85,12 @@ export default async function almacenController(fastify:FastifyInstance) {
             let data = JSON.parse(JSON.stringify(request.body))
             try {
                 let product = handler.crear_producto(ID, data.nombre, data.marca, data.tipo, data.PVP)
-                handler.eliminar_producto_almacen(ID)
-                handler.aniadir_producto_almacen(product,data.cantidad)
+                handler.actualizar_producto_almacen(product,data.cantidad)
                 reply.code(200).send({result: `Product with ID ${ID} updated successfully.`})
             } catch {
-                reply.code(404).send({error: `Product with ID ${ID} not found.`})
-                logger.error(`HTTP404. Product with ID ${ID} not found.`)
-
+                let product = handler.crear_producto(ID, data.nombre, data.marca, data.tipo, data.PVP)
+                handler.aniadir_producto_almacen(product,data.cantidad)
+                reply.code(201).send({error: `Product with ID ${ID} created successfully.`})
             }
         }
     })

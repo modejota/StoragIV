@@ -31,6 +31,7 @@ export default async function facturaController(fastify:FastifyInstance) {
                 handler.crear_factura(data.id)
             } finally {
                 reply.code(201).send({result: `Bill with ID ${data.id} created successfully.`})
+                logger.info(`Bill with ID ${data.id} created successfully.`)
             }
         }
     })
@@ -64,6 +65,7 @@ export default async function facturaController(fastify:FastifyInstance) {
             try {
                 handler.eliminar_factura(data.id)
                 reply.code(200).send({result: `Bill with ID ${data.id} deleted successfully.`})
+                logger.info(`Bill with ID ${data.id} deleted successfully.`)
             } catch {
                 reply.status(404).send({error: `Bill with ID ${data.id} not found.`})
                 logger.error(`HTPT404. Bill with ID ${data.id} not found.`)
@@ -86,11 +88,13 @@ export default async function facturaController(fastify:FastifyInstance) {
             try {
                 let product = handler.crear_producto(data.id, data.nombre, data.marca, data.tipo, data.PVP)
                 handler.aniadir_producto_factura(id,product,data.cantidad)
-                reply.status(201).send({result: `Product added successfully to bill with ID ${id}.`})
+                reply.status(201).send({result: `Product with ID ${data.id} added successfully to bill with ID ${id}.`})
+                logger.info(`Product with ID ${data.id} added successfully to bill with ID ${id}.`)
             } catch {
                 let product = handler.crear_producto(data.id, data.nombre, data.marca, data.tipo, data.PVP)
                 handler.actualizar_producto_factura(id,product,data.cantidad)
-                reply.status(200).send({result: `Product with ID ${id} successfully updated.`})
+                reply.status(200).send({result: `Product with ID ${data.id} successfully updated in bill with ID ${id}.`})
+                logger.info(`Product with ID ${data.id} successfully updated in bill with ID ${id}.`)
             }
         }
     })
@@ -124,6 +128,7 @@ export default async function facturaController(fastify:FastifyInstance) {
             try {
                 handler.eliminar_producto_factura(params.id, params.idp)
                 reply.code(200).send({result: `Product with ID ${params.idp} deleted successfully from bill with ID ${params.id}.`})
+                logger.info(`Product with ID ${params.idp} deleted successfully from bill with ID ${params.id}.`)
             } catch {
                 reply.status(404).send({error: "Product and/or bill not found."})
                 logger.error(`HTPT404. Product and/or bill not found.`)
@@ -185,6 +190,7 @@ export default async function facturaController(fastify:FastifyInstance) {
             try {
                 handler.actualizar_cantidad_producto_factura(params.id, params.idp, data.cantidad)
                 reply.code(200).send({result: `Quantity of product with ID ${params.idp} in bill with ID ${params.id} updated successfully.`})
+                logger.info(`Quantity of product with ID ${params.idp} in bill with ID ${params.id} updated successfully.`)
             } catch {
                 reply.code(404).send({error: "Product and/or bill not found"})
                 logger.error(`HTPT404. Product and/or bill not found.`)

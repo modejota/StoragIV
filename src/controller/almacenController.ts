@@ -19,11 +19,13 @@ export default async function almacenController(fastify:FastifyInstance) {
             try {
                 let product = handler.crear_producto(data.id, data.nombre, data.marca, data.tipo, data.PVP)
                 handler.aniadir_producto_almacen(product,data.cantidad)
-                reply.status(201).send({result: "Product added successfully to storage."})
+                reply.status(201).send({result: `Product with ID ${data.id} added successfully to storage.`})
+                logger.info(`Product with ID ${data.id} added successfully to storage.`)
             } catch {
                 let product = handler.crear_producto(data.id, data.nombre, data.marca, data.tipo, data.PVP)
                 handler.actualizar_producto_almacen(product,data.cantidad)
                 reply.status(200).send({result: `Product with ID ${data.id} updated successfully.`})
+                logger.info(`Product with ID ${data.id} updated successfully.`)
             }
         }
     })
@@ -66,6 +68,7 @@ export default async function almacenController(fastify:FastifyInstance) {
             try {
                 handler.eliminar_producto_almacen(data.id)
                 reply.code(200).send({result: `Product with ID ${data.id} deleted successfully.`})
+                logger.info(`Product with ID ${data.id} deleted successfully.`)
             } catch {
                 reply.status(404).send({error: `Product with ID ${data.id} not found.`})
                 logger.error(`HTTP404. Product with ID ${data.id} not found.`)
@@ -87,10 +90,12 @@ export default async function almacenController(fastify:FastifyInstance) {
                 let product = handler.crear_producto(ID, data.nombre, data.marca, data.tipo, data.PVP)
                 handler.actualizar_producto_almacen(product,data.cantidad)
                 reply.code(200).send({result: `Product with ID ${ID} updated successfully.`})
+                logger.info(`Product with ID ${ID} updated successfully.`)
             } catch {
                 let product = handler.crear_producto(ID, data.nombre, data.marca, data.tipo, data.PVP)
                 handler.aniadir_producto_almacen(product,data.cantidad)
-                reply.code(201).send({error: `Product with ID ${ID} created successfully.`})
+                reply.code(201).send({result: `Product with ID ${ID} created successfully.`})
+                logger.info(`Product with ID ${ID} created successfully.`)
             }
         }
     })

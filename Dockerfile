@@ -2,7 +2,7 @@ FROM node:16.13-alpine
 LABEL version "1.0" mantainer="modej@correo.ugr.es"
 
 WORKDIR /app 
-RUN chown -R node:node . && chmod 755 -R . && mkidr test/dist
+RUN chown -R node:node . && chmod 755 -R . && mkdir test/dist
 USER node
 COPY --chown=node:node package*.json ./
 RUN npm ci

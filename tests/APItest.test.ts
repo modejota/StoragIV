@@ -33,6 +33,8 @@ describe('Tests de rutas relativas al almacen', () => {
         });
         expect(res.statusCode).toBe(201)
         expect(res.json()).toEqual({result: `Product with ID ${aProduct.id} added successfully to storage.`})
+        expect(res.headers['location']).toEqual(`/products/${aProduct.id}`)
+
     })
 
     it('POST a product with ID already exiting', async () => { 
@@ -94,6 +96,8 @@ describe('Tests de rutas relativas al almacen', () => {
         });
         expect(res.statusCode).toBe(201)
         expect(res.json()).toEqual({result: `Product with ID 100 created successfully.`})
+        expect(res.headers['location']).toEqual(`/products/100`)
+
     })
 
     it('PATCH the quantity of a product', async() => {
@@ -144,6 +148,8 @@ describe('Tests de rutas relativas a las facturas', () => {
         });
         expect(res.statusCode).toBe(201)
         expect(res.json()).toEqual({result: `Bill with ID ${anID.id} created successfully.`})
+        expect(res.headers['location']).toEqual(`/bills/${anID.id}`)
+
     })
 
     it('POST a bill with ID already exiting', async () => { 
@@ -162,6 +168,7 @@ describe('Tests de rutas relativas a las facturas', () => {
             payload: aProduct
         });
         expect(res.json()).toEqual({result: `Product with ID ${aProduct.id} added successfully to bill with ID ${anID.id}.`})
+        expect(res.headers['location']).toEqual(`/bills/${anID.id}/product/${aProduct.id}`)
     })
 
     it('POST an existing product to a bill', async () => {

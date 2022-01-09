@@ -19,6 +19,7 @@ export default async function almacenController(fastify:FastifyInstance) {
             try {
                 let product = handler.crear_producto(data.id, data.nombre, data.marca, data.tipo, data.PVP)
                 handler.aniadir_producto_almacen(product,data.cantidad)
+                reply.header('Location',`/products/${data.id}`)
                 reply.status(201).send({result: `Product with ID ${data.id} added successfully to storage.`})
                 logger.info(`Product with ID ${data.id} added successfully to storage.`)
             } catch {
@@ -94,6 +95,7 @@ export default async function almacenController(fastify:FastifyInstance) {
             } catch {
                 let product = handler.crear_producto(ID, data.nombre, data.marca, data.tipo, data.PVP)
                 handler.aniadir_producto_almacen(product,data.cantidad)
+                reply.header('Location',`/products/${ID}`)
                 reply.code(201).send({result: `Product with ID ${ID} created successfully.`})
                 logger.info(`Product with ID ${ID} created successfully.`)
             }

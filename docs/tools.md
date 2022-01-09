@@ -27,6 +27,8 @@ Los principales motivos por los que lo he elegido son los siguientes:
 - Trabaja de forma asíncrona y dirigida por eventos, por lo que permite hacer muchas cosas al mismo tiempo, se tiene un muy buen rendimiento.
 - Goza de gran popularidad, una comunidad bastante activa, y es usado por grandes compañías, lo que transmite confianza.
 
+Una alternativa es Deno, un entorno de ejecución multiplataforma que utiliza Typescript por defecto. Su principal ventaja es la ejecución de código en modo "sandbox". Su principal "desventaja" es la necesidad de convertir los módulos NPM y la falta de estandarización de ES modules. 
+
 ## Gestor de dependencias
 ---
 
@@ -52,10 +54,22 @@ Como hemos mencionado en el apartado anterior, NPM es un gestor de dependencias,
 ## Framework de tests
 ---
 
-Como framework de tests he decidido utilizar jest. 
+A la hora de elegir un framework de tests busco:
+- Que incluya biblioteca de aserciones.
+- Proporcione informes del código cubierto por los tests.
+- Se pueda ser selectivo con los test a ejecutar.
+- Tenga buena documentación y sea fácil de configurar/usar.
+- Sea compatible con TypeScript.
+- Cuanto más rápido sea, mejor.
 
-Por lo que he podido leer, tiene un gran soporte con TypeScript a través del paquete ts-jest, es bastante rápido y permite escribir test de manera rápida, sencilla y concisa.
-Además, es fácil de configurar, es capaz de identificar automáticamente los ficheros de test y muestra la cobertura de los test, dificultando que te dejes alguna parte del código sin probar.
+Se barajan dos opciones, Jest y Mocha.
+
+Ambas opciones son tremendamente similares, pero se elige Jest por los siguientes motivos:
+- Incluye libreria de aserciones, por lo que no necesitamos añadir otra librería/dependencia adicional. Mocha requiere de Chai.
+- Tiene una sintaxis más concisa, aunque haga faltan varias sentencias para escribir algo que en Mocha se puede hacer en una sola (mucho más larga y poco legible).
+- Proporciona informes de cobertura de código.
+
+Para proyectos de mayor tamaño, puede ser preferible utilizar Mocha debido a su mayor flexibilidad. Jest está pensado, principalmente, para test unitarios.
 
 El comando utilizado para instalarlo ha sido:
   > npm i jest @types/jest ts-jest typescript -D
@@ -65,6 +79,8 @@ El comando utilizado para instalarlo ha sido:
 ---
 
 Utilizaremos Docker para crear un contenedor en el que poder ejecutar los test de forma aislada.
+
+En DockerHub no existe una imagen base "oficial" de Microsoft para TypeScript. Terceros han publicado algunas imagenes, pero muchas de ellas son versiones antiguas y sin mantenimiento, y las que si están actualizadas incluyen dependencias que no necesito, por lo que utilizaré la imagen base de Node e instalaré lo que necesite.
 
 La imagen base utilizada es `node:16.13-alpine`. Se ha escogido la versión mayor 16 por ser la versión LTS más reciente, y la menor 13 por ser la que tenía instalada en mi ordenador. Se elige la versión `alpine` por ocupar un espacio mínimo. Además, al no tener prácticamente librerías incluidas evitamos posibles incompatibilidades y mejoramos la seguridad. Seremos nosotros quien nos encarguemos de instalar las dependencias justas y necesarias.
 
@@ -80,10 +96,11 @@ En el marco del objetivo 6 debemos elegir dos sistemas de integración continua.
 
 El primero de ellos es Travis CI. El motivo por el que ha sido elegido es por su gran facilidad de uso, permitiendo una rápida configuración, especialmente a la hora de probar distintas versiones de un lenguaje. Se realizan tests sobre NodeJS 14, versión más antigua soportada por la configuración de Jest y JavaScript que tengo, así como sobre la última version estable. La principal pega ha sido el tener que introducir la tarjeta de crédito para acceder al servicio "gratuito", pero no me termina de importar demasiado (espero que me devuelvan el dólar que me han retenido). 
 
+El servicio "gratuito" no es realmente gratuito, no por lo menos como lo era antiguamente. Lo que se proporciona con el registro es un periodo de prueba de un mes, tras el cual los tests dejan de ejecutarse y el dashboard te pide "amablemente" que actualices tu plan. Estando registrado con Github Education se te proporcionan builds gratuitas, pero solo para repositorios privados.
 
-El segundo de ellos es Circle CI, el cual no requiere aportar método de pago para usar el plan gratuito (siendo estudiante al menos). Tras testearlo un poco, parece sencillo de utilizar. Una ventaja es que la propia herramienta te ofrece plantillas de ficheros de configuración en función del lenguaje que detecte en tu repositorio (aunque no las he utilizado), siendo otra ventaja la posibilidad de utilizar contenedores Docker con bastante facilidad. También me ha gustado que si cometes un fallo en el fichero de configuración (cosa que obviamente me ha pasado) la propia web te avisa, pudiendo editarlo en dicha web y permitiendo hacer un commit directamente a la rama de Github correspondiente. Como desventaja, se puede mencionar el hecho de que se deben tener en cuenta cosas que Travis CI da por supuestas (checkout del código, o tener que activar los Github Checks, por ejemplo), o que, al no estar tan integrado con Github, no muestra si se pasan los test desde la página del Pull Request, teniendo que ir al dashboard de Circle CI. 
+El segundo de ellos es Circle CI, el cual no requiere aportar método de pago para usar el plan gratuito (siendo estudiante al menos), que tiene un buen número de minutos disponibles. Tras testearlo un poco, parece sencillo de utilizar. Una ventaja es que la propia herramienta te ofrece plantillas de ficheros de configuración en función del lenguaje que detecte en tu repositorio (aunque no las he utilizado), siendo otra ventaja la posibilidad de utilizar contenedores Docker con bastante facilidad y ejecutar tests en paralelo. También me ha gustado que si cometes un fallo en el fichero de configuración (cosa que obviamente me ha pasado) la propia web te avisa, pudiendo editarlo en dicha web y permitiendo hacer un commit directamente a la rama de Github correspondiente. Como desventaja, se puede mencionar el hecho de que se deben tener en cuenta cosas que Travis CI da por supuestas (checkout del código, o tener que activar los Github Checks, por ejemplo), o que, al no estar tan integrado con Github, no muestra si se pasan los test desde la página del Pull Request, teniendo que ir al dashboard de Circle CI. 
 
-Se valoró también utilizar Semaphore CI, el cual es sumamente parecido a Circle CI, hasta el punto de no poder encontrar ninguna diferencia reseñable más allá de las diferencias en los ficheros de configuración (ambos sencillos). Me descarté por Circle CI por ser el que mejores críticas tenía en distintas webs de comparativas y valoraciones, además de ser el que se comprueba obligatoriamente en los test de la asignatura.
+Se valoró también utilizar Semaphore CI, el cual es sumamente parecido a Circle CI, hasta el punto de no poder encontrar ninguna diferencia reseñable más allá de las diferencias en los ficheros de configuración (ambos sencillos). Me descarté por Circle CI por ser el que mejores críticas tenía en distintas webs de comparativas y valoraciones, además de ser el que se comprueba obligatoriamente en los test de la asignatura. Por último, el periodo de prueba de Semaphore CI es de solo 14 días, insuficiente para abordar la asignatura.
 
 Cabe también mencionar que en Travis CI ejecuto los test a partir del código fuente, ya que en dicha plataforma sería más sencillo testearlo para distintas versiones del lenguaje (aunque por lo que he visto en Circle CI no es complejo). En Circle CI trabajo a partir del contenedor Docker, por aprovechar lo que hicimos en el objetivo anterior.
 
@@ -117,7 +134,7 @@ Necesitaremos también de un servicio que nos permita abstraer la configuración
 
 Utilizaré Dotenv para guardar parejas de claves-valor con los parámetros de configuración susceptibles de ser modificados, como el directorio donde guardar los logs, o el nombre del fichero JSON donde se almacenan. En el futuro puede que se requiera de más de estas variables de entorno.
 
-Para la configuración remota, no hay demasiadas alternativas entre las que escoger, así que optado directamente por utilizar Etcd3, como se recomendó en clase de teoría.
+Para la configuración remota, no hay demasiadas alternativas entre las que escoger, así que optado directamente por utilizar Etcd3, como se recomendó en clase de teoría. 
 
 En el objetivo 7 se prepara el fichero de configuración para hacer uso de este servicio, pero dado que aún no hemos establecido ningún servidor, la solicitud fallará y pasará a tomar las variables de entorno, y, en última instancia si esto fallara por algún motivo, tomar un valor "hardcoded".
 

@@ -30,6 +30,7 @@ export default async function facturaController(fastify:FastifyInstance) {
                 handler.eliminar_factura(data.id)
                 handler.crear_factura(data.id)
             } finally {
+                reply.header('Location',`/bills/${data.id}`)
                 reply.code(201).send({result: `Bill with ID ${data.id} created successfully.`})
                 logger.info(`Bill with ID ${data.id} created successfully.`)
             }
@@ -88,6 +89,7 @@ export default async function facturaController(fastify:FastifyInstance) {
             try {
                 let product = handler.crear_producto(data.id, data.nombre, data.marca, data.tipo, data.PVP)
                 handler.aniadir_producto_factura(id,product,data.cantidad)
+                reply.header('Location',`/bills/${id}/product/${data.id}`)
                 reply.status(201).send({result: `Product with ID ${data.id} added successfully to bill with ID ${id}.`})
                 logger.info(`Product with ID ${data.id} added successfully to bill with ID ${id}.`)
             } catch {

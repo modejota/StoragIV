@@ -8,6 +8,7 @@
         "start": "node dist/src/index.js",
         "clean": "tsc --build --clean",
         "postclean": "rm -rf dist && rm -rf docs/coverage",
+        "install": "",
         "test": "jest --detectOpenHandles",
         "coverage": "jest --detectOpenHandles --coverage --no-cache",
         "docker:build": "docker build -t storagiv .",

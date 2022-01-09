@@ -1,4 +1,4 @@
-import { Constantes } from "../constantes";
+import { Constantes } from "../constantes/constantes";
 import { Error_producto } from "../errores";
 import { Tipo_producto } from "./tipo_producto";
 

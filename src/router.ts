@@ -4,14 +4,14 @@ import facturaController from "./controller/facturaController";
 
 export default async function router(fastify: FastifyInstance) {
 
-    fastify.register(almacenController, { prefix: '/product' })
-    fastify.register(facturaController, { prefix: '/bill' })
+    fastify.register(almacenController, { prefix: '/products' })
+    fastify.register(facturaController, { prefix: '/bills' })
 
-    fastify.get('/', async (request,reply) => {
+    fastify.get('/', async function (request,reply) {
         reply.status(200).send({greeting: 'Welcome to storagIV API'});
     })
 
-    fastify.get('/status', async (request,reply) => {
-        reply.status(200).send({hello: 'I am live!'});
-    })
+    fastify.get('/status', async function (request, reply) {
+            reply.status(200).send({ hello: 'I am live!' });
+        })
 }

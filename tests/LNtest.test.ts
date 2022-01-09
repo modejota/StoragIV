@@ -1,4 +1,4 @@
-import { Error_existencias, Error_factura, Error_handler, Error_producto } from  "../src/errores"
+import { Error_handler } from  "../src/errores"
 import { Producto } from "../src/models/producto";
 import { Tipo_producto } from "../src/models/tipo_producto";
 import { handler } from "../src/handler";
@@ -149,10 +149,8 @@ describe('Tests de toda la aplicación', () => {
         };
         expect(invalidID_producto).toThrow(Error_handler) 
 
-        const invalidQuantity = () => {
-            handler.actualizar_cantidad_producto_factura(1,1,-4)
-        };
-        expect(invalidQuantity).toThrow(Error_handler) 
+        handler.actualizar_cantidad_producto_factura(1,1,-4)
+        expect(handler.obtener_producto_factura(1,1)[1]).toBe(0)
 
         const noExistingID = () => {
             handler.actualizar_cantidad_producto_factura(1,112,4)
@@ -264,13 +262,8 @@ describe('Tests de toda la aplicación', () => {
         handler.actualizar_cantidad_producto_almacen(1,4)
         expect(handler.obtener_producto_almacen(1)?.[1]).toBe(4)    
 
-        handler.actualizar_cantidad_producto_almacen(1,-2)
-        expect(handler.obtener_producto_almacen(1)?.[1]).toBe(2) 
-
-        const negativeQuantity = () => {
-            handler.actualizar_cantidad_producto_almacen(1,-400)
-        };
-        expect(negativeQuantity).toThrow(Error_handler); 
+        handler.actualizar_cantidad_producto_almacen(1,-400)
+        expect(handler.obtener_producto_almacen(1)?.[1]).toBe(0) 
 
         const noExistingID = () => {
             handler.actualizar_cantidad_producto_almacen(121,4)
@@ -279,12 +272,4 @@ describe('Tests de toda la aplicación', () => {
 
     })
 
-    
 })
-
-
-
-
-
-
-

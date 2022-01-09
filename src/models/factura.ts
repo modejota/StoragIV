@@ -1,6 +1,7 @@
 import { Producto } from "./producto";
-import { Constantes } from "../constantes";
+import { Constantes } from "../constantes/constantes";
 import { Error_factura } from "../errores";
+import { P } from "pino";
 
 /**
  * Representa una factura del negocio
@@ -82,13 +83,33 @@ export class Factura {
         if (ID <= Constantes.ID_INVALIDO)
             throw new Error_factura(` Se intentó acceder un producto con ID ${ID} inválido `)
         
-        if (new_c <= Constantes.CANTIDAD_INVALIDA)
-            throw new Error_factura(` Se  intentó asignar la cantidad ${new_c} inválida al producto con ID ${ID} `)
-
         if (this._productos.has(ID)) {
             let producto = this._productos.get(ID)?.[0]
-            if(producto)
-                this._productos.set(ID,[producto,new_c])
+            if (new_c >= Constantes.CANTIDAD_INVALIDA)
+                this._productos.set(ID, [producto as Producto, new_c])
+            else
+                this._productos.set(ID, [producto as Producto, Constantes.CANTIDAD_INVALIDA])
+
+        } else 
+            throw new Error_factura( `Se intentó acceder a un producto con ID ${ID} no presente en la factura `)
+        
+    }
+
+    /**
+     * Método para actualizar un producto en una factura
+     * @param ID Identificador único del producto
+     * @param new_c Nueva cantidad del producto con identificador ID
+     */
+    public actualizar_producto(product: Producto, new_c: number) {
+        let ID = product.id_producto
+        if (ID <= Constantes.ID_INVALIDO)
+            throw new Error_factura(` Se intentó acceder un producto con ID ${ID} inválido `)
+        
+        if (this._productos.has(ID)) {
+            if (new_c >= Constantes.CANTIDAD_INVALIDA)
+                this._productos.set(ID, [product, new_c])
+            else    
+                this._productos.set(ID, [product,Constantes.CANTIDAD_INVALIDA])
         } else 
             throw new Error_factura( `Se intentó acceder a un producto con ID ${ID} no presente en la factura `)
         
@@ -112,6 +133,14 @@ export class Factura {
      */
     public get_num_items() {
         return this._productos.size
+    }
+
+    /**
+     * Método para obtener todos los productos presentes en la factura
+     * @returns Todos los productos presentes en la factura
+     */
+    public get productos() {
+        return this._productos
     }
 
 }

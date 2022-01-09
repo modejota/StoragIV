@@ -4,7 +4,7 @@ import { Factura } from "./models/factura";
 import { Producto } from "./models/producto";
 import { Tipo_producto } from "./models/tipo_producto";
 import { logger } from "./logger";
-import { Constantes } from "./constantes";
+import { Constantes } from "./constantes/constantes";
 
 class Handler {
     private _existencias: Existencias
@@ -96,11 +96,29 @@ class Handler {
     }
 
     /**
+     * Método para actualizar un determinado producto presente en el almacén
+     * @param producto Producto con los valores a actualizar
+     * @param cantidad Nueva cantidad del producto
+     */
+         public actualizar_producto_almacen(producto: Producto, cantidad: number) {
+            let ID = producto.id_producto
+            try {
+                this._existencias.actualizar_producto(producto,cantidad)
+                logger.info(`Producto con ID ${ID} actualizado correctamente.`)
+            } catch (exception) {
+                logger.error(exception)
+                if (exception instanceof Error_existencias)
+                    this._last_err_message = exception.message
+                throw new Error_handler(this._last_err_message)
+            }
+        }
+
+    /**
      * Método para actualizar la cantidad de la que se dispone de un determinado producto en el almacén
      * @param ID Identificador único del producto
      * @param cantidad Valor en el que debe variarse la cantidad del producto
      */
-    public actualizar_cantidad_producto_almacen(ID: number, cantidad: number) {
+     public actualizar_cantidad_producto_almacen(ID: number, cantidad: number) {
         try {
             this._existencias.actualizar_cantidad_producto(ID,cantidad)
             logger.info(`Cantidad del producto con ID ${ID} actualizado correctamente.`)
@@ -253,6 +271,31 @@ class Handler {
     }
 
     /**
+     * Método para actualizar un producto en una factura
+     * @param ID_factura Identificador único de la factura
+     * @param producto Producto con los datos a ser actualizados
+     * @param new_c Nueva cantidad del producto 
+     */
+    public actualizar_producto_factura(ID_factura: number, producto:Producto,new_c:number) {
+        let ID_producto = producto.id_producto
+        if (!this._facturas.has(ID_factura)) {
+            this._last_err_message = `Se intentó eliminar un producto de una factura con ID ${ID_factura} no existente`
+            logger.error(this._last_err_message)
+            throw new Error_handler(this._last_err_message)
+        } else {
+            try {
+                this._facturas.get(ID_factura)?.actualizar_producto(producto,new_c)
+                logger.info(`Cantidad del producto con ID ${ID_producto} de la factura ${ID_factura} actualizado con éxito`)
+            } catch (exception) {
+                logger.error(exception)
+                if (exception instanceof Error_factura)
+                    this._last_err_message = exception.message
+                throw new Error_handler(this._last_err_message) 
+            }
+        }
+    }
+
+    /**
      * Método para actualizar la cantidad de un producto en una factura
      * @param ID_factura Identificador único de la factura
      * @param ID_producto Identificador único del producto
@@ -330,10 +373,9 @@ class Handler {
      * Método para obtener todos los productos del almacen
      * @returns Productos presentes en el almacen
      */
-    public get_all_productos_almacen(): Existencias {
-        return this._existencias
+    public get_all_productos_almacen() {
+        return this._existencias.inventario
     }
-
 
 }
 
